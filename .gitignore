@@ -1,0 +1,89 @@
+# ───────────────────────────────────────────────
+# OS
+# ───────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ───────────────────────────────────────────────
+# Logs (both projects)
+# ───────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# ───────────────────────────────────────────────
+# berutek.serv  (NestJS / Node.js)
+# ───────────────────────────────────────────────
+
+# Compiled output
+berutek.serv/dist/
+berutek.serv/build/
+
+# Dependencies
+berutek.serv/node_modules/
+
+# Environment variables
+berutek.serv/.env
+berutek.serv/.env.local
+berutek.serv/.env.development.local
+berutek.serv/.env.test.local
+berutek.serv/.env.production.local
+
+# Test coverage
+berutek.serv/coverage/
+berutek.serv/.nyc_output/
+
+# Runtime data
+berutek.serv/pids/
+berutek.serv/*.pid
+berutek.serv/*.seed
+berutek.serv/*.pid.lock
+
+# Temp
+berutek.serv/.temp/
+berutek.serv/.tmp/
+
+# Diagnostic reports
+berutek.serv/report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# TypeScript build info
+berutek.serv/*.tsbuildinfo
+
+# ───────────────────────────────────────────────
+# berutek.ui  (Next.js / React)
+# ───────────────────────────────────────────────
+
+# Dependencies
+berutek.ui/node_modules/
+berutek.ui/.pnp
+berutek.ui/.pnp.*
+berutek.ui/.yarn/*
+!berutek.ui/.yarn/patches
+!berutek.ui/.yarn/plugins
+!berutek.ui/.yarn/releases
+!berutek.ui/.yarn/versions
+
+# Next.js build output
+berutek.ui/.next/
+berutek.ui/out/
+berutek.ui/build/
+
+# Test coverage
+berutek.ui/coverage/
+
+# Environment variables
+berutek.ui/.env*
+
+# Vercel deployment
+berutek.ui/.vercel
+
+# TypeScript build info & generated types
+berutek.ui/*.tsbuildinfo
+berutek.ui/next-env.d.ts
+
+# Certificates
+berutek.ui/*.pem
