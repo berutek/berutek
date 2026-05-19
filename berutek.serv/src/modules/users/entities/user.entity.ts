@@ -25,7 +25,6 @@ export class User {
     @Exclude({ toPlainOnly: true })
     passwordHash: string;
 
-
     @Column({ name: 'failed_login_attempts', default: 0 })
     failedLoginAttempts: number;
     @Column({ name: 'locked_until', type: 'timestamptz', nullable: true })
