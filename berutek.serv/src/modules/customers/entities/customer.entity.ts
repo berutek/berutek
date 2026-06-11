@@ -32,6 +32,4 @@ export class CustomerEntity {
     @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
     updatedAt: Date;
 
-    @OneToOne(() => ReviewEntity, review => review.customer)
-    review: ReviewEntity;
 }

@@ -16,7 +16,7 @@ import { CustomerModule } from './modules/customers/customer.module';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: [`.env.${process.env.NODE_ENV || 'development'}`, '.env'],
       load: [databaseConfig, configuration],
       cache: true,
     }),

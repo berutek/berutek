@@ -14,8 +14,8 @@ export class ReviewService {
         return this.repo.findAll();
     }
 
-    findByCustomerId(customerId: string): Promise<IReview[]> {
-        return this.repo.findByCustomerId(customerId);
+    findByUserId(userId: string): Promise<IReview[]> {
+        return this.repo.findByUserId(userId);
     }
 
     async findOne(id: string): Promise<IReview> {

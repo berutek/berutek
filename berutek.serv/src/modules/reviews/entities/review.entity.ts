@@ -1,5 +1,6 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { CustomerEntity } from "../../customers/entities/customer.entity";
+import { User } from "../../users/entities/user.entity";
 
 @Entity('reviews')
 export class ReviewEntity {
@@ -7,8 +8,8 @@ export class ReviewEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
-    @Column({ name: 'customer_id', type: 'uuid' })
-    customerId: string;
+    @Column({ name: 'user_id', type: 'uuid' })
+    userId: string;
 
     @Column({ type: 'int' })
     rating: number;
@@ -25,7 +26,7 @@ export class ReviewEntity {
     @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
     updatedAt: Date;
 
-    @OneToOne(() => CustomerEntity)
-    @JoinColumn({ name: 'customer_id' })
-    customer: CustomerEntity;
+    @OneToOne(() => User)
+    @JoinColumn({ name: 'user_id' })
+    user: User;
 }

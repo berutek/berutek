@@ -15,15 +15,15 @@ export class ReviewRepository {
     ) {}
 
     findAll(): Promise<ReviewEntity[]> {
-        return this.repo.find({ where: { isDeleted: false }, relations: ['customer'] });
+        return this.repo.find({ where: { isDeleted: false }, relations: ['user'] });
     }
 
-    findByCustomerId(customerId: string): Promise<ReviewEntity[]> {
-        return this.repo.find({ where: { customerId, isDeleted: false } });
+    findByUserId(userId: string): Promise<ReviewEntity[]> {
+        return this.repo.find({ where: { userId, isDeleted: false }, relations: ['user'] });
     }
 
     findOneById(id: string): Promise<ReviewEntity | null> {
-        return this.repo.findOne({ where: { id, isDeleted: false }, relations: ['customer'] });
+        return this.repo.findOne({ where: { id, isDeleted: false }, relations: ['user'] });
     }
 
     create(dto: CreateReviewDto): Promise<ReviewEntity> {

@@ -7,6 +7,7 @@ import { RoleEntity } from '../../roles/entities/role.entity';
 import { TwoFactorAuth } from '../../two-factor/entities/two-factor.entity';
 import { RecoveryCode } from '../../two-factor/entities/recovery-code.entity';
 import { SessionEntity } from '../../session/entities/session.entity';
+import { ReviewEntity } from '../../reviews/entities/review.entity';
 
 @Entity('users')
 @Index(['email'], { unique: true })
@@ -72,5 +73,8 @@ export class User {
         inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
     })
     roles: RoleEntity[];
+
+    @OneToOne(() => ReviewEntity, (review) => review.user)
+    review: ReviewEntity;
 
 }

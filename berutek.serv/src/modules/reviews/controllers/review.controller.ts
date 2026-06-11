@@ -19,12 +19,12 @@ export class ReviewController {
         return this.reviewService.findAll();
     }
 
-    @Get('customer/:customerId')
+    @Get('user/:userId')
     @Public()
-    findByCustomer(
-        @Param('customerId', new ParseUUIDPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) customerId: string,
+    find(
+        @Param('userId', new ParseUUIDPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE })) userId: string,
     ) {
-        return this.reviewService.findByCustomerId(customerId);
+        return this.reviewService.findByUserId(userId);
     }
 
     @Get(':id')

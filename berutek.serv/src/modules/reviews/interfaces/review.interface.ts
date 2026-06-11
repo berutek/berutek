@@ -1,12 +1,12 @@
-import type { ICustomer } from "../../customers/interfaces/customer.interface";
+import { IUser } from "../../users/interfaces/user.interface";
 
 export interface IReview {
     id: string;
-    customerId: string;
+    userId: string;
     rating: number;
     comment: string;
     isDeleted: boolean;
     createdAt: Date;
     updatedAt: Date;
-    customer?: ICustomer;
+    user?: IUser;
 }
