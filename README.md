@@ -70,5 +70,5 @@ I've been working with Linux for over **5 years**, building and maintaining robu
 
 ---
 
-> ⚡ Fun Fact: I love integrating diverse technologies to solve complex problems — whether it's automating workflows, optimizing infrastructure, or building secure systems from scratch.
+> ⚡ Fun Fact: I love integrating diverse technologies to solve complex problems, whether it's automating workflows, optimizing infrastructure, or building secure systems from scratch.
 

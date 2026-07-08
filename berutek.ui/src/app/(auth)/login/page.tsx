@@ -63,7 +63,7 @@ export default function LoginPage() {
         >
           Log In
         </button>
-        <a href="/signup" className="text-blue-500 hover:text-blue-700">
+        <a href="/contact" className="text-blue-500 hover:text-blue-700">
           Create a new account
         </a>
       </form>

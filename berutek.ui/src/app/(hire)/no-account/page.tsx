@@ -11,7 +11,7 @@ export default function NoAccountHirePage() {
                     Book a meeting
                 </a>
             </div>
-            <a href="/signup" className="px-4 py-2 underline underline-offset-4 hover:text-gray-700 transition duration-300 dark:text-gray-200  dark:hover:text-gray-400">
+            <a href="/contact" className="px-4 py-2 underline underline-offset-4 hover:text-gray-700 transition duration-300 dark:text-gray-200  dark:hover:text-gray-400">
                 Continue signing up
             </a>
         </>

@@ -1,6 +1,6 @@
 # berutek.serv
 
-Backend API for the **BeruTek** ecosystem — a platform built to manage customers, automate security-sensitive workflows, and integrate intelligent automation pipelines. Built with NestJS and designed for high security standards from the ground up.
+Backend API for the **BeruTek** ecosystem, a platform built to manage customers, automate security-sensitive workflows, and integrate intelligent automation pipelines. Built with NestJS and designed for high security standards from the ground up.
 
 ---
 
@@ -90,19 +90,19 @@ Every login attempt (success or failure) is persisted to `login_attempts`. All s
 
 ## Security Architecture
 
-- **Argon2** password hashing — no plain-text or MD5/bcrypt shortcuts.
-- **JWT rotation** — short-lived access tokens (default `15m`) with refresh token rotation (default `7d`). Refresh tokens are stored hashed and invalidated on use.
-- **TOTP 2FA** — HMAC-based one-time passwords via `otplib`. QR code provisioning URI returned on setup. Encrypted recovery codes regenerable on demand.
-- **Account lockout** — configurable max failed attempts (default `5`) triggers a timed lockout (default `15m`), tracked per user.
-- **Rate limiting** — three throttle tiers applied globally:
+- **Argon2** password hashing, no plain-text or MD5/bcrypt shortcuts.
+- **JWT rotation**, short-lived access tokens (default `15m`) with refresh token rotation (default `7d`). Refresh tokens are stored hashed and invalidated on use.
+- **TOTP 2FA**, HMAC-based one-time passwords via `otplib`. QR code provisioning URI returned on setup. Encrypted recovery codes regenerable on demand.
+- **Account lockout**, configurable max failed attempts (default `5`) triggers a timed lockout (default `15m`), tracked per user.
+- **Rate limiting**, three throttle tiers applied globally:
   - `short`: 10 req / 1s
   - `medium`: 60 req / 1 min
   - `long`: 1000 req / 1 hr
   - Auth endpoints additionally capped at 5 req / 1 min.
-- **Helmet** — sets secure HTTP headers on every response.
-- **CORS** — origin, methods, and headers controlled via environment config.
-- **RBAC** — role & permission entities with a `user_roles` join table. `@Roles` decorator + `RolesGuard` enforced at the controller level.
-- **Global JWT guard** — every route is protected by default; opt-out with `@Public()`.
+- **Helmet**, sets secure HTTP headers on every response.
+- **CORS**, origin, methods, and headers controlled via environment config.
+- **RBAC**, role & permission entities with a `user_roles` join table. `@Roles` decorator + `RolesGuard` enforced at the controller level.
+- **Global JWT guard**, every route is protected by default; opt-out with `@Public()`.
 
 ---
 
@@ -186,7 +186,7 @@ npm run start:prod
 
 ## Coming Soon
 
-- **n8n integration** — automated workflow triggers for customer lifecycle events, security alerts, and approval pipelines.
-- **Notifications module** — email & in-app notification dispatch powered by SMTP config already wired in.
-- **Advanced RBAC** — permission inheritance and scoped resource access.
-- **More ecosystem modules** — expanding the BeruTek platform beyond customer management.
+- **n8n integration**, automated workflow triggers for customer lifecycle events, security alerts, and approval pipelines.
+- **Notifications module**, email & in-app notification dispatch powered by SMTP config already wired in.
+- **Advanced RBAC**, permission inheritance and scoped resource access.
+- **More ecosystem modules**, expanding the BeruTek platform beyond customer management.

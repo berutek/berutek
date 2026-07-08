@@ -9,13 +9,13 @@ const values = [
     icon: "◈",
     title: "Quality by default",
     description:
-      "Clean architecture, typed codebases, and deployment pipelines that work. I don't cut corners — I just cut the overhead that comes with large teams.",
+      "Clean architecture, typed codebases, and deployment pipelines that work. I don't cut corners, I just cut the overhead that comes with large teams.",
   },
   {
     icon: "∿",
     title: "Built for the long run",
     description:
-      "Code I ship is code I'd maintain. Every decision is made with future you in mind — not just the demo deadline.",
+      "Code I ship is code I'd maintain. Every decision is made with future you in mind, not just the demo deadline.",
   },
 ];
 
@@ -47,8 +47,8 @@ const stackCategories = [
 ];
 
 const stats = [
-  { value: "5+", label: "Years in production" },
-  { value: "8", label: "Core services offered" },
+  { value: "3+", label: "Years in production" },
+  { value: "4", label: "Core services offered" },
   { value: "1", label: "Engineer, fully accountable" },
   { value: "∞", label: "Commitment to quality" },
 ];
@@ -66,7 +66,7 @@ export default function AboutPage() {
           One engineer.&nbsp;Full&nbsp;accountability.
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto text-lg leading-relaxed">
-          Berutek is a boutique software studio run by Giovanny Berutek — a full-stack engineer and
+          Berutek is a boutique software studio run by Giovanny Berutek, a full-stack engineer and
           systems specialist dedicated to building production-grade software for startups and small
           teams who can&apos;t afford to get it wrong.
         </p>
@@ -88,12 +88,12 @@ export default function AboutPage() {
               worked in the demo but broke in production.
             </p>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
-              The problem isn&apos;t always skill — it&apos;s structure. When too many hands touch the
+              The problem isn&apos;t always skill, it&apos;s structure. When too many hands touch the
               same project, things fall between the cracks. Berutek exists to fix that: one engineer
               who owns the entire stack and is directly accountable for the outcome.
             </p>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Over 5 years, I&apos;ve built full-stack web apps, managed Linux servers, designed database
+              Over 3 years, I&apos;ve built full-stack web apps, managed Linux servers, designed database
               schemas, wired up cloud infrastructure, and shipped automation pipelines that saved
               teams hours every week. Every project made the next one sharper.
             </p>
@@ -114,7 +114,7 @@ export default function AboutPage() {
             </div>
 
             <div className="border-t border-zinc-100 dark:border-zinc-800 pt-4 space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-              <p>⊕ &nbsp;5+ years shipping production software</p>
+              <p>⊕ &nbsp;3+ years shipping production software</p>
               <p>☁ &nbsp;Cloud infrastructure on Google Cloud Platform</p>
               <p>⬢ &nbsp;Linux systems administration &amp; hardening</p>
               <p>∿ &nbsp;Automation, integrations, and API design</p>
@@ -228,11 +228,11 @@ export default function AboutPage() {
         </h2>
         <p className="text-zinc-500 dark:text-zinc-400 mb-6 max-w-md mx-auto text-sm">
           Whether you have a full spec or just an idea on a napkin, I can help you scope it,
-          build it, and ship it — without the overhead of a full agency.
+          build it, and ship it, without the overhead of a full agency.
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
           <a
-            href="/signup"
+            href="/contact"
             className="px-6 py-3 rounded-lg bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity"
           >
             Hire me

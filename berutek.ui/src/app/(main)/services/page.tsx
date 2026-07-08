@@ -1,9 +1,12 @@
+import GetInTouch from "@/src/components/getInTouch";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
+
 const services = [
   {
     icon: "◈",
     title: "Full-Stack Web Development",
     description:
-      "End-to-end web applications built with Next.js, React, and Node.js. From responsive UIs to robust server-side logic — delivered as a complete, production-ready product.",
+      "End-to-end web applications built with Next.js, React, and Node.js. From responsive UIs to robust server-side logic, delivered as a complete, production-ready product.",
     tags: ["Next.js", "React", "TypeScript", "Node.js"],
   },
   {
@@ -24,7 +27,7 @@ const services = [
     icon: "⬢",
     title: "Linux Systems Administration",
     description:
-      "5+ years managing Linux environments. Server setup, hardening, SSH/SFTP configuration, process management, and long-term system reliability for self-hosted or cloud workloads.",
+      "3+ years managing Linux environments. Server setup, hardening, SSH/SFTP configuration, process management, and long-term system reliability for self-hosted or cloud workloads.",
     tags: ["Linux", "SSH", "SFTP", "Bash", "System Hardening"],
   },
   {
@@ -38,7 +41,7 @@ const services = [
     icon: "∿",
     title: "Automation & Integrations",
     description:
-      "Custom automation scripts and third-party API integrations — from Google Workspace and CRM platforms to email pipelines and scheduled data workflows.",
+      "Custom automation scripts and third-party API integrations, from Google Workspace and CRM platforms to email pipelines and scheduled data workflows.",
     tags: ["Python", "Google APIs", "OAuth 2.0", "Automation"],
   },
   {
@@ -52,7 +55,7 @@ const services = [
     icon: "⟳",
     title: "CRM & Workflow Integrations",
     description:
-      "Bridge your tools together. From Housecall Pro and Google Sheets to custom dashboards — I build the glue layer that keeps your data accurate and your team unblocked.",
+      "Bridge your tools together. From Housecall Pro and Google Sheets to custom dashboards, I build the glue layer that keeps your data accurate and your team unblocked.",
     tags: ["CRM APIs", "Google Sheets", "Webhooks", "Pipelines"],
   },
 ];
@@ -77,24 +80,22 @@ export default function ServicesPage() {
           Scalable, secure, and&nbsp;elegant solutions
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto text-lg">
-          I&apos;m Giovanny — a full-stack developer and systems engineer with 5+ years building
+          I'm Giovanny, a full-stack developer and systems engineer with 3+ years building
           production software. I work with startups and small teams who need things done right,
           not just done fast.
         </p>
         <div className="mt-8 flex flex-wrap gap-3 justify-center">
           <a
-            href="/signup"
+            href="/contact"
             className="px-5 py-2.5 rounded-lg bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity"
           >
             Hire me
           </a>
           <a
-            href="https://github.com/berutek"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/work"
             className="px-5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
-            View portfolio →
+            View my work <ArrowRightIcon className="inline-block w-4 h-4 ml-1" />
           </a>
         </div>
       </section>
@@ -151,21 +152,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 p-10 text-center">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-3">
-          Ready to build something?
-        </h2>
-        <p className="text-zinc-500 dark:text-zinc-400 mb-6 max-w-md mx-auto text-sm">
-          Whether you have a clear spec or just an idea, I can help you scope it, build it, and ship it.
-        </p>
-        <a
-          href="/signup"
-          className="inline-block px-6 py-3 rounded-lg bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity"
-        >
-          Get in touch
-        </a>
-      </section>
+      <GetInTouch />
 
     </main>
   );

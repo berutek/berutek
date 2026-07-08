@@ -1,9 +1,12 @@
+import GetInTouch from "@/src/components/getInTouch";
+import ArrowRightIcon from "@heroicons/react/24/solid/esm/ArrowRightIcon";
+
 const highlights = [
   {
     icon: "◈",
     title: "Full-Stack Development",
     description:
-      "End-to-end web applications — from pixel-perfect React interfaces to robust Node.js backends. Shipped as complete, production-ready products.",
+      "End-to-end web applications, from pixel-perfect React interfaces to robust Node.js backends. Shipped as complete, production-ready products.",
   },
   {
     icon: "☁",
@@ -24,7 +27,7 @@ const differentiators = [
     icon: "⊙",
     title: "Direct communication",
     description:
-      "You work with me — not a project manager or a rotating team. Every decision goes through one accountable person.",
+      "You work with me, not a project manager or a rotating team. Every decision goes through one accountable person.",
   },
   {
     icon: "⬡",
@@ -34,9 +37,9 @@ const differentiators = [
   },
   {
     icon: "∿",
-    title: "5+ years in production",
+    title: "3+ years in production",
     description:
-      "Not portfolio projects — real systems handling real users. I've seen what breaks at scale and design to avoid it.",
+      "Not portfolio projects, real systems handling real users. I've seen what breaks at scale and design to avoid it.",
   },
 ];
 
@@ -53,13 +56,14 @@ export default function Home() {
           We build the software&nbsp;behind&nbsp;your business.
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto text-lg leading-relaxed">
-          Berutek is a boutique development studio run by Giovanny Berutek — a full-stack engineer
-          and systems specialist with 5+ years building production software for startups and small
+          Berutek is a boutique development studio run by Giovanny Bernal, a full-stack engineer
+          and systems specialist with 3+ years building production software for startups and small
           teams who need things done right.
         </p>
+          <img src="https://drive.berutek.dev/avatar/berutek/512/dark?v=1781279073094" alt="Giovanny Bernal BeruTek Manager" className="mt-8 rounded-full w-48 h-48 object-cover justify-self-center" />
         <div className="mt-8 flex flex-wrap gap-3 justify-center">
           <a
-            href="/signup"
+            href="/contact"
             className="px-5 py-2.5 rounded-lg bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity"
           >
             Hire me
@@ -68,7 +72,7 @@ export default function Home() {
             href="/services"
             className="px-5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
           >
-            See our services →
+            See my services <ArrowRightIcon className="inline-block w-4 h-4 ml-1" />
           </a>
         </div>
       </section>
@@ -85,7 +89,7 @@ export default function Home() {
             </h2>
             <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed mb-4">
               Berutek was founded on the belief that small teams deserve the same quality of
-              engineering as enterprise companies — without the overhead, the slow timelines, or the
+              engineering as enterprise companies, without the overhead, the slow timelines, or the
               communication gaps that come from working with large agencies.
             </p>
             <p className="text-zinc-500 dark:text-zinc-400 text-sm leading-relaxed">
@@ -99,7 +103,7 @@ export default function Home() {
               Founder
             </p>
             <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
-              Giovanny Berutek
+              Giovanny Bernal
             </h3>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">
               Full-Stack Developer &amp; Systems Engineer
@@ -184,21 +188,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 p-10 text-center">
-        <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-3">
-          Ready to build something?
-        </h2>
-        <p className="text-zinc-500 dark:text-zinc-400 mb-6 max-w-md mx-auto text-sm">
-          Whether you have a clear spec or just an idea, I can help you scope it, build it, and ship it.
-        </p>
-        <a
-          href="/signup"
-          className="inline-block px-6 py-3 rounded-lg bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity"
-        >
-          Get in touch
-        </a>
-      </section>
+      <GetInTouch />
 
     </main>
   );
