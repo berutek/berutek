@@ -17,7 +17,7 @@ export default function Header() {
     <header className="w-full bg-zinc-100 dark:bg-zinc-900">
       <div className="flex items-center justify-between h-16 px-8">
         <div className="flex items-center space-x-2">
-          <img src="/berutek.icon.png" alt="Berutek Logo" className="w-8 h-8" />
+          <img src="/berutek.icon.webp" alt="Berutek Logo" className="w-8 h-8" />
           <h1 className="text-xl font-bold text-gray-800 dark:text-gray-200">Berutek</h1>
         </div>
 
