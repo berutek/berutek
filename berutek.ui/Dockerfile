@@ -1,14 +1,14 @@
 # ---- deps ----
 FROM node:24.15.0-alpine AS deps
 WORKDIR /app
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@11.1.3 --activate
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
 # ---- builder ----
 FROM node:24.15.0-alpine AS builder
 WORKDIR /app
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@11.1.3 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm run build
