@@ -16,8 +16,68 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "BeruTek - AI-Powered Freelance Marketplace",
-  description: "BeruTek is an AI-powered freelance marketplace that connects businesses with top-tier freelancers for a wide range of services. Our platform leverages cutting-edge AI technology to match clients with the best freelancers based on their skills, experience, and project requirements. Whether you're looking for web development, graphic design, content creation, or any other freelance service, BeruTek has you covered. Join us today and experience the future of freelancing!  ",
+  metadataBase: new URL("https://berutek.dev"),
+  title: {
+    default: "Berutek — Boutique Software Studio",
+    template: "%s | Berutek",
+  },
+  description:
+    "Berutek is a boutique software studio run by Giovanny Bernal — full-stack developer and systems engineer with 3+ years building production software for startups and small teams.",
+  keywords: [
+    "full-stack developer",
+    "freelance software engineer",
+    "web development",
+    "cloud infrastructure",
+    "Next.js developer",
+    "React developer",
+    "Node.js",
+    "GCP",
+    "Docker",
+    "automation",
+    "Giovanny Bernal",
+    "boutique software studio",
+  ],
+  authors: [{ name: "Giovanny Bernal", url: "https://berutek.dev" }],
+  creator: "Giovanny Bernal",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://berutek.dev",
+    siteName: "Berutek",
+    title: "Berutek — Boutique Software Studio",
+    description:
+      "Full-stack development, cloud infrastructure, and automation for startups and small teams. Direct communication, end-to-end ownership, 3+ years in production.",
+    images: [
+      {
+        url: "/berutek.icon.webp",
+        width: 512,
+        height: 512,
+        alt: "Berutek logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: "Berutek — Boutique Software Studio",
+    description:
+      "Full-stack development, cloud infrastructure, and automation for startups and small teams.",
+    images: ["/berutek.icon.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  icons: {
+    icon: "/berutek.icon.webp",
+    apple: "/berutek.icon.webp",
+  },
 };
 
 export default function RootLayout({

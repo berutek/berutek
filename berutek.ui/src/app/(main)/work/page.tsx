@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import GetInTouch from "@/src/components/getInTouch";
 import ArrowRightIcon from "@heroicons/react/24/solid/esm/ArrowRightIcon";
+
+export const metadata: Metadata = {
+  title: "Work",
+  description:
+    "Projects built by Berutek: BeruDrive (self-hosted cloud storage), BeruPortal (server management portal), BeruAI (AI automation workflows), and more production systems.",
+  openGraph: {
+    title: "Work — Berutek",
+    description:
+      "Real production systems built by Giovanny Bernal: self-hosted cloud storage, server management portals, and AI automation workflows.",
+    url: "https://berutek.dev/work",
+  },
+};
 
 export default function ProjectsPage() {
 

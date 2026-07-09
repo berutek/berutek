@@ -1,5 +1,18 @@
+import type { Metadata } from "next";
 import GetInTouch from "@/src/components/getInTouch";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+
+export const metadata: Metadata = {
+  title: "Services",
+  description:
+    "Full-stack web development, backend APIs, cloud infrastructure on GCP, Linux administration, database design, automation, custom email servers, and CRM integrations by Giovanny Bernal.",
+  openGraph: {
+    title: "Services — Berutek",
+    description:
+      "8 freelance services: full-stack development, cloud infrastructure, Linux administration, database design, automation, and more. TypeScript, React, Node.js, GCP, Docker.",
+    url: "https://berutek.dev/services",
+  },
+};
 
 const services = [
   {

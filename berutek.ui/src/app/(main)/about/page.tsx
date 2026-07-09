@@ -1,3 +1,17 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description:
+    "Learn about Giovanny Bernal and Berutek — a boutique software studio built on direct communication, end-to-end ownership, and production-grade engineering for startups and small teams.",
+  openGraph: {
+    title: "About Berutek",
+    description:
+      "One engineer, full accountability. The story behind Berutek and how Giovanny Bernal builds production software for small teams.",
+    url: "https://berutek.dev/about",
+  },
+};
+
 const values = [
   {
     icon: "⊙",

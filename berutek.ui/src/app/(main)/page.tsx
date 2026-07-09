@@ -1,5 +1,48 @@
+import type { Metadata } from "next";
 import GetInTouch from "@/src/components/getInTouch";
 import ArrowRightIcon from "@heroicons/react/24/solid/esm/ArrowRightIcon";
+
+export const metadata: Metadata = {
+  title: "Berutek — Software Engineering Studio",
+  description:
+    "Berutek is a boutique development studio run by Giovanny Bernal, a full-stack engineer with 3+ years building production software for startups and small teams who need things done right.",
+  openGraph: {
+    title: "Berutek — Software Engineering Studio",
+    description:
+      "Full-stack development, cloud infrastructure, and automation. One engineer, full accountability.",
+    url: "https://berutek.dev",
+  },
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Berutek",
+  url: "https://berutek.dev",
+  logo: "https://berutek.dev/berutek.icon.webp",
+  description:
+    "Boutique software studio offering full-stack development, cloud infrastructure, and automation for startups and small teams.",
+  email: "giovanny@berutek.dev",
+  founder: {
+    "@type": "Person",
+    name: "Giovanny Bernal",
+    jobTitle: "Full-Stack Developer & Systems Engineer",
+    url: "https://berutek.dev/about",
+    email: "giovanny@berutek.dev",
+    sameAs: ["https://github.com/berutek"],
+    knowsAbout: [
+      "TypeScript",
+      "React",
+      "Next.js",
+      "Node.js",
+      "Google Cloud Platform",
+      "Docker",
+      "Linux",
+      "Python",
+    ],
+  },
+  sameAs: ["https://github.com/berutek"],
+};
 
 const highlights = [
   {
@@ -46,6 +89,10 @@ const differentiators = [
 export default function Home() {
   return (
     <main className="w-full max-w-5xl px-6 py-16 mx-auto">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+      />
 
       {/* Hero */}
       <section className="mb-24 text-center">
