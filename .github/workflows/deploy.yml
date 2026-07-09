@@ -19,6 +19,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v5
         with:
+          context: ./berutek.ui
+          file: ./berutek.ui/Dockerfile
           push: true
           tags: |
             ghcr.io/${{ github.repository }}:latest
