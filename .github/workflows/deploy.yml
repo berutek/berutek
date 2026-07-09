@@ -30,6 +30,6 @@ jobs:
     steps:
       - name: Pull and restart
         run: |
-          cd /opt/apps/berutek
+          cd /opt/berutek
           docker compose pull app
           docker compose up -d --no-deps app
