@@ -107,7 +107,7 @@ export default function Home() {
           and systems specialist with 3+ years building production software for startups and small
           teams who need things done right.
         </p>
-          <img src="https://drive.berutek.dev/avatar/berutek/512/dark?v=1781279073094" alt="Giovanny Bernal BeruTek Manager" className="mt-8 rounded-full w-48 h-48 object-cover justify-self-center" />
+        <img src="https://drive.berutek.dev/avatar/berutek/512/dark?v=1781279073094" alt="Giovanny Bernal BeruTek Manager" className="mt-8 rounded-full w-48 h-48 object-cover justify-self-center" />
         <div className="mt-8 flex flex-wrap gap-3 justify-center">
           <a
             href="/contact"
@@ -212,9 +212,17 @@ export default function Home() {
 
       {/* Why Berutek */}
       <section className="mb-20">
-        <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-8">
-          Why Berutek
-        </p>
+        <div className="flex items-center justify-between mb-8">
+          <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500">
+            Why Berutek
+          </p>
+          <a
+            href="/about"
+            className="text-xs font-mono text-zinc-400 dark:text-zinc-500 hover:text-zinc-700 dark:hover:text-zinc-300 transition-colors"
+          >
+            View more →
+          </a>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {differentiators.map((item) => (
             <div

@@ -37,7 +37,7 @@ export default function Header() {
         <nav className="hidden md:block">
           <ul className="flex items-center space-x-4">
             <li>
-              <a href="https://login.berutek.dev/?flow=openid_connect&flow_id=f3f93fbd-e5c9-4891-a536-2a9c5deda9b9" className="text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
+              <a href="https://drive.berutek.dev/apps/user_oidc/login/3" className="text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
                 Log in
               </a>
             </li>
@@ -78,7 +78,7 @@ export default function Header() {
             ))}
             <li className="border-t border-zinc-200 dark:border-zinc-700 pt-4">
               <a
-                href="https://login.berutek.dev/?flow=openid_connect&flow_id=f3f93fbd-e5c9-4891-a536-2a9c5deda9b9"
+                href="https://drive.berutek.dev/apps/user_oidc/login/3"
                 className="block text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
                 onClick={() => setMenuOpen(false)}
               >
