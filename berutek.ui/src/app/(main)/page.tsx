@@ -117,7 +117,7 @@ export default function Home() {
           </a>
           <a
             href="/services"
-            className="px-5 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors"
+            className="px-5 py-2.5 bg-zinc-100 dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 text-sm font-medium hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-colors"
           >
             See my services <ArrowRightIcon className="inline-block w-4 h-4 ml-1" />
           </a>
@@ -165,14 +165,24 @@ export default function Home() {
                 </span>
               ))}
             </div>
-            <a
-              href="https://github.com/berutek"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
-            >
-              github.com/berutek →
-            </a>
+            <div className="flex flex-col gap-2">
+              <a
+                href="https://github.com/berutek"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
+              >
+                github.com/berutek →
+              </a>
+              <a
+                href="https://linkedin.com/in/berutek"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 transition-colors"
+              >
+                linkedin.com/in/berutek →
+              </a>
+            </div>
           </div>
         </div>
       </section>

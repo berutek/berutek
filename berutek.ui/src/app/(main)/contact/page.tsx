@@ -1,7 +1,8 @@
 "use client";
 
 import { PhoneIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha-v2";
 
 type Severity = "low" | "medium" | "high" | "urgent";
 
@@ -31,6 +32,8 @@ const INITIAL_FORM: ContactForm = {
 export default function ContactPage() {
   const [form, setForm] = useState<ContactForm>(INITIAL_FORM);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -41,23 +44,24 @@ export default function ContactPage() {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-     setStatus("sending");
-    // try {
-    //   const res = await fetch("/api/contact", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(form),
-    //   });
-    //   if (!res.ok) throw new Error("Request failed");
-    //   setStatus("sent");
-    //   setForm(INITIAL_FORM);
-    // } catch {
-    //   setStatus("error");
-    // }
-    setTimeout(() => {
+    if (!recaptchaToken) return;
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, recaptchaToken }),
+      });
+      if (!res.ok) throw new Error("Request failed");
       setStatus("sent");
-      //setForm(INITIAL_FORM);
-    }, 1000); // Simulate network delay
+      setForm(INITIAL_FORM);
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
+    } catch {
+      setStatus("error");
+      recaptchaRef.current?.reset();
+      setRecaptchaToken(null);
+    }
   }
 
   return (
@@ -167,7 +171,7 @@ export default function ContactPage() {
                       onClick={() => setForm((prev) => ({ ...prev, severity: opt.value }))}
                       title={opt.hint}
                       className={[
-                        "px-3 py-2.5 rounded-lg border text-xs font-mono transition-colors text-left",
+                        "px-3 py-2.5 rounded-lg border text-xs font-mono transition-colors text-left cursor-pointer",
                         form.severity === opt.value
                           ? "border-zinc-900 dark:border-zinc-100 bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-900"
                           : "border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:border-zinc-400 dark:hover:border-zinc-500",
@@ -186,10 +190,17 @@ export default function ContactPage() {
                 </p>
               )}
 
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
+                onChange={setRecaptchaToken}
+                onExpired={() => setRecaptchaToken(null)}
+              />
+
               <button
                 type="submit"
-                disabled={status === "sending"}
-                className="w-full px-6 py-3 rounded-lg bg-zinc-900 text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={status === "sending" || !recaptchaToken}
+                className="w-full px-6 py-3 rounded-lg bg-zinc-900 cursor-pointer text-zinc-50 dark:bg-zinc-50 dark:text-zinc-900 text-sm font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {status === "sending" ? "Sending…" : "Send message"}
               </button>
@@ -229,9 +240,39 @@ export default function ContactPage() {
                 <span className="text-zinc-400 dark:text-zinc-500 select-none">⬡</span>
                 github.com/berutek
               </a>
+              <a
+                href="https://linkedin.com/in/berutek"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+              >
+                <span className="text-zinc-400 dark:text-zinc-500 select-none">⬢</span>
+                linkedin.com/in/berutek
+              </a>
             </div>
           </div>
-
+          <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
+            <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
+              Book a call
+            </p>
+            <div className="space-y-3 text-sm">
+              <a
+                href="https://drive.berutek.dev/apps/calendar/appointment/mPjgXDb6Nkgq"
+                target="_blank"
+                className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"
+              >
+                <span className="text-zinc-400 dark:text-zinc-500 select-none">📅</span>
+                30-min free scoping call
+              </a>
+              <hr className="border-zinc-200 dark:border-zinc-800" />
+              <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-3">
+                Timezone
+              </p>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                Based in the Americas, typically available Mon–Fri, 8 AM–7 PM ET.
+              </p>
+            </div>
+          </div>
           <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
             <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
               What to expect
@@ -250,15 +291,6 @@ export default function ContactPage() {
                 No obligation, no pressure
               </li>
             </ul>
-          </div>
-
-          <div className="p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
-            <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-3">
-              Timezone
-            </p>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              Based in the Americas, typically available Mon–Fri, 6 AM–8 PM ET.
-            </p>
           </div>
         </div>
 
