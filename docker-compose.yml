@@ -5,12 +5,16 @@ services:
     build:
       context: ./berutek.ui
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL}
+        NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
     container_name: berutek_ui
     ports:
       - "3000:3000"
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@host.docker.internal:5432/${POSTGRES_DB}
+      RECAPTCHA_SECRET_KEY: ${RECAPTCHA_SECRET_KEY}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: unless-stopped

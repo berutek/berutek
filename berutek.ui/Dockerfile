@@ -11,6 +11,14 @@ WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@11.1.3 --activate
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+# NEXT_PUBLIC_* vars are inlined into the client bundle at build time (not read
+# at container runtime), so they must be passed in as build args here.
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+ENV NEXT_PUBLIC_RECAPTCHA_SITE_KEY=$NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+
 RUN pnpm run build
 
 # ---- runner ----
