@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: new URLSearchParams({
-      secret: process.env.RECAPTCHA_SECRET_KEY!,
+      secret: process.env.NEXT_PUBLIC_RECAPTCHA_SECRET_KEY!,
       response: recaptchaToken,
     }),
   });
