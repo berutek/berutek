@@ -1,7 +1,7 @@
 "use client";
 
 import { PhoneIcon } from "@heroicons/react/24/outline";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha-v2";
 
 type Severity = "low" | "medium" | "high" | "urgent";
@@ -33,7 +33,7 @@ export default function ContactPage() {
   const [form, setForm] = useState<ContactForm>(INITIAL_FORM);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [recaptchaKey, setRecaptchaKey] = useState(0);
 
   function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -55,11 +55,11 @@ export default function ContactPage() {
       if (!res.ok) throw new Error("Request failed");
       setStatus("sent");
       setForm(INITIAL_FORM);
-      recaptchaRef.current?.reset();
+      setRecaptchaKey((k) => k + 1);
       setRecaptchaToken(null);
     } catch {
       setStatus("error");
-      recaptchaRef.current?.reset();
+      setRecaptchaKey((k) => k + 1);
       setRecaptchaToken(null);
     }
   }
@@ -191,7 +191,7 @@ export default function ContactPage() {
               )}
 
               <ReCAPTCHA
-                ref={recaptchaRef}
+                key={recaptchaKey}
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
                 onChange={setRecaptchaToken}
                 onExpired={() => setRecaptchaToken(null)}
