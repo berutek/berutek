@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import GetInTouch from "@/src/components/getInTouch";
 import ArrowRightIcon from "@heroicons/react/24/solid/esm/ArrowRightIcon";
+import { ProjectCard } from "@/src/components/work/ProjectCard";
+import type { Project } from "@/src/components/work/ProjectDetailsModal";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -16,22 +18,79 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
 
-  const projects = [
+  const projects: Project[] = [
     {
-      title: "BeruDrive - Self-hosted cloud storage",
-      description: "Developed a self-hosted cloud storage solution using NextCloud. The application allows users to store, manage, and share files securely.",
-      link: "https://drive.berutek.dev"
+      icon: "BeruDrive.png",
+      title: "BeruDrive",
+      description: "Self-hosted cloud storage built on NextCloud — private, encrypted, and fully under BeruTeK control.",
+      link: "https://drive.berutek.dev",
+      status: "live",
+      year: "2025",
+      technologies: ["NextCloud", "Docker", "Nginx", "Cloudflare", "Linux", "PHP", "PostgreSQL", "Authelia"],
+      details: "A fully self-hosted cloud storage solution built on NextCloud and deployed on a personal server using Docker. Provides private, encrypted file storage and sharing without any dependency on third-party cloud providers like Google Drive or Dropbox.",
+      highlights: [
+        "End-to-end encrypted file storage and sharing",
+        "Custom domain with automatic SSL via Let's Encrypt and Cloudflare",
+        "Docker-based deployment for zero-downtime updates",
+        "Granular user management and folder-level permissions",
+        "WebDAV and mobile sync client support",
+      ],
+      history: "Built as a response to privacy concerns with mainstream cloud providers. Deployed on an existing home server, using Docker Compose to manage the NextCloud stack alongside its MariaDB database. Cloudflare handles DNS and proxying, while Let's Encrypt provides TLS certificates automatically.",
     },
     {
-      title: "BeruPortal - Personal server portal management",
-      description: "Created a personal server portal management system using Fedora & Clockpit. The portal provides an intuitive interface for managing server resources, monitoring performance, deploying applications and most impoortant high security for ssh, http & ftp servers.",
-      link: "https://portal.berutek.dev"
+      icon: "BeruServer.png",
+      title: "BeruServer",
+      description: "Personal server management portal running on Fedora Linux with Cockpit — the backbone of all Berutek infrastructure.",
+      link: "https://server.berutek.dev",
+      status: "live",
+      year: "2024",
+      technologies: ["Fedora Linux", "Cockpit", "Nginx", "Docker", "FTP", "SSH", "CI/CD"],
+      details: "A hardened personal server portal built on Fedora Linux with Cockpit providing the web-based management interface. Serves as the central infrastructure hub for hosting all Berutek services, with strict security configurations across SSH, HTTP, and FTP layers.",
+      highlights: [
+        "Web-based resource monitoring and process management via Cockpit",
+        "Key-based SSH authentication only — password auth disabled",
+        "Nginx reverse proxy routing all services through a single entry point",
+        "Intrusion prevention with Fail2Ban and UFW firewall rules",
+        "Docker containers for service isolation and easy rollbacks",
+      ],
+      history: "Started when the number of self-hosted services grew beyond what was manageable over raw SSH. Fedora was chosen for its up-to-date packages and SELinux support. Cockpit was added to provide a browser-based dashboard without opening additional attack surface. Security hardening was applied iteratively, informed by real-world intrusion attempts logged by Fail2Ban.",
     },
     {
-      title: "BeruAI - AI Automation workflows",
-      description: "Developed AI-powered automation workflows to streamline repetitive tasks and improve efficiency. The solution integrates with existing systems to provide seamless automation capabilities.",
-      link: "https://n8n.berutek.dev"
-    }
+      icon: "BeruAI.png",
+      title: "BeruAI",
+      description: "Self-hosted n8n instance powering AI automation workflows that connect services and eliminate repetitive manual work.",
+      link: "https://n8n.berutek.dev",
+      status: "live",
+      year: "2026",
+      technologies: ["n8n", "Docker", "Claude AI", "REST APIs", "Webhooks", "PostgreSQL"],
+      details: "A self-hosted n8n automation platform integrated with Claude AI and various third-party services. Used to design, run, and monitor multi-step workflows that automate repetitive tasks across the Berutek ecosystem — from data processing to AI-assisted content pipelines.",
+      highlights: [
+        "Visual workflow builder with branching logic and error handling",
+        "AI-powered document processing and summarization via Claude",
+        "Webhook-triggered automations for real-time event responses",
+        "REST API integrations with third-party SaaS tools",
+        "PostgreSQL backend for persistent workflow execution history",
+      ],
+      history: "Built to automate the growing number of repetitive tasks across Berutek's internal tools. n8n was chosen over hosted alternatives like Zapier for its self-hosted nature, transparent pricing, and extensible node system. Claude AI was integrated as the reasoning layer for tasks that require understanding unstructured text — summarization, classification, and drafting.",
+    },
+    {
+      icon: "berutek.icon.webp",
+      title: "BeruPortal",
+      description: "Self-hosted portal for managing and monitoring Berutek's infrastructure and services.",
+      link: "https://portal.berutek.dev",
+      status: "in-progress",
+      year: "2026",
+      technologies: ["n8n", "Docker", "Claude AI", "REST APIs", "Webhooks", "PostgreSQL"],
+      details: "A self-hosted n8n automation platform integrated with Claude AI and various third-party services. Used to design, run, and monitor multi-step workflows that automate repetitive tasks across the Berutek ecosystem — from data processing to AI-assisted content pipelines.",
+      highlights: [
+        "Visual workflow builder with branching logic and error handling",
+        "AI-powered document processing and summarization via Claude",
+        "Webhook-triggered automations for real-time event responses",
+        "REST API integrations with third-party SaaS tools",
+        "PostgreSQL backend for persistent workflow execution history",
+      ],
+      history: "Built to automate the growing number of repetitive tasks across Berutek's internal tools. n8n was chosen over hosted alternatives like Zapier for its self-hosted nature, transparent pricing, and extensible node system. Claude AI was integrated as the reasoning layer for tasks that require understanding unstructured text — summarization, classification, and drafting.",
+    },
   ];
 
   return (
@@ -62,22 +121,7 @@ export default function ProjectsPage() {
       </section>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-20">
         {projects.map((project, index) => (
-          <div className="flex flex-col gap-3 group p-6 rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors" key={index}>
-            <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100">
-              {project.title}
-            </h3>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              {project.description}
-            </p>
-            <a
-              href={project.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:underline mt-auto"
-            >
-              View my work →
-            </a>
-          </div>
+          <ProjectCard key={index} project={project} />
         ))}
       </div>
       <GetInTouch />
