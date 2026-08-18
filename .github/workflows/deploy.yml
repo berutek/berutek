@@ -12,11 +12,13 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+      
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      
       - uses: docker/build-push-action@v5
         with:
           context: ./berutek.ui
@@ -37,12 +39,15 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v4
+      
       - uses: docker/setup-buildx-action@v3
+      
       - uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      
       - uses: docker/build-push-action@v5
         with:
           context: ./berutek.serv
@@ -58,19 +63,22 @@ jobs:
     needs: [build, build-serv]
     runs-on: self-hosted
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
       - name: Login to GitHub Container Registry
         run: |
           echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Write server environment
+      
+      - name: Create .env.serv file
         env:
-          # Database
+          # Database (CRITICAL: use 'postgres' not 'localhost')
           SERV_DB_HOST: ${{ secrets.DB_HOST }}
           SERV_DB_PORT: ${{ secrets.DB_PORT }}
           SERV_DB_USERNAME: ${{ secrets.DB_USERNAME }}
           SERV_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           SERV_DB_NAME: ${{ secrets.DB_NAME }}
-          # Auth secrets
+          # Auth
           SERV_SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           SERV_JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
           SERV_JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
@@ -81,9 +89,8 @@ jobs:
           SERV_OIDC_ISSUER_URL: ${{ secrets.OIDC_ISSUER_URL }}
           SERV_OIDC_DISCOVERY_URL: ${{ secrets.OIDC_DISCOVERY_URL }}
           SERV_OIDC_CALLBACK_URL: ${{ secrets.OIDC_CALLBACK_URL }}
-          #Frontend
+          # Frontend & App
           SERV_FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
-          # Application
           SERV_APP_CORS_ORIGIN: ${{ secrets.APP_CORS_ORIGIN }}
           # Mail
           SERV_SMTP_HOST: ${{ secrets.SMTP_HOST }}
@@ -92,46 +99,101 @@ jobs:
           SERV_SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           SERV_SMTP_FROM: ${{ secrets.SMTP_FROM }}
         run: |
-          {
-            echo "NODE_ENV=production"
-            echo "PORT=3030"
-            echo "API_PREFIX=/api/v1"
-            echo "DB_HOST=${SERV_DB_HOST}"
-            echo "DB_PORT=${SERV_DB_PORT}"
-            echo "DB_USERNAME=${SERV_DB_USERNAME}"
-            echo "DB_PASSWORD=${SERV_DB_PASSWORD}"
-            echo "DB_NAME=${SERV_DB_NAME}"
-            echo "DB_SYNCHRONIZE=false"
-            echo "DB_LOGGING=false"
-            echo "SESSION_SECRET=${SERV_SESSION_SECRET}"
-            echo "JWT_ACCESS_SECRET=${SERV_JWT_ACCESS_SECRET}"
-            echo "JWT_ACCESS_EXPIRATION=15m"
-            echo "JWT_REFRESH_SECRET=${SERV_JWT_REFRESH_SECRET}"
-            echo "JWT_REFRESH_EXPIRATION=7d"
-            echo "JWT_ISSUER=berutek"
-            echo "FRONTEND_URL=${SERV_FRONTEND_URL}"
-            echo "ENCRYPTION_KEY=${SERV_ENCRYPTION_KEY}"
-            echo "APP_CORS_ORIGIN=${SERV_APP_CORS_ORIGIN}"
-            echo "OIDC_CLIENT_ID=${SERV_OIDC_CLIENT_ID}"
-            echo "OIDC_CLIENT_SECRET=${SERV_OIDC_CLIENT_SECRET}"
-            echo "OIDC_ISSUER_URL=${SERV_OIDC_ISSUER_URL}"
-            echo "OIDC_DISCOVERY_URL=${SERV_OIDC_DISCOVERY_URL}"
-            echo "OIDC_CALLBACK_URL=${SERV_OIDC_CALLBACK_URL}"
-            echo "SMTP_HOST=${SERV_SMTP_HOST}"
-            echo "SMTP_PORT=${SERV_SMTP_PORT}"
-            echo "SMTP_USER=${SERV_SMTP_USER}"
-            echo "SMTP_PASSWORD=${SERV_SMTP_PASSWORD}"
-            echo "SMTP_FROM=${SERV_SMTP_FROM}"
-          } > /opt/berutek/.env.serv
-
-      - name: Pull and restart UI
+          cat > /opt/berutek/.env.serv << 'EOF'
+          NODE_ENV=production
+          PORT=3030
+          API_PREFIX=/api/v1
+          
+          # Database
+          DB_HOST=${SERV_DB_HOST}
+          DB_PORT=${SERV_DB_PORT}
+          DB_USERNAME=${SERV_DB_USERNAME}
+          DB_PASSWORD=${SERV_DB_PASSWORD}
+          DB_NAME=${SERV_DB_NAME}
+          DB_SYNCHRONIZE=false
+          DB_LOGGING=false
+          
+          # Session & JWT
+          SESSION_SECRET=${SERV_SESSION_SECRET}
+          JWT_ACCESS_SECRET=${SERV_JWT_ACCESS_SECRET}
+          JWT_ACCESS_EXPIRATION=15m
+          JWT_REFRESH_SECRET=${SERV_JWT_REFRESH_SECRET}
+          JWT_REFRESH_EXPIRATION=7d
+          JWT_ISSUER=berutek
+          
+          # Application
+          FRONTEND_URL=${SERV_FRONTEND_URL}
+          APP_CORS_ORIGIN=${SERV_APP_CORS_ORIGIN}
+          ENCRYPTION_KEY=${SERV_ENCRYPTION_KEY}
+          
+          # OIDC
+          OIDC_CLIENT_ID=${SERV_OIDC_CLIENT_ID}
+          OIDC_CLIENT_SECRET=${SERV_OIDC_CLIENT_SECRET}
+          OIDC_ISSUER_URL=${SERV_OIDC_ISSUER_URL}
+          OIDC_DISCOVERY_URL=${SERV_OIDC_DISCOVERY_URL}
+          OIDC_CALLBACK_URL=${SERV_OIDC_CALLBACK_URL}
+          
+          # SMTP
+          SMTP_HOST=${SERV_SMTP_HOST}
+          SMTP_PORT=${SERV_SMTP_PORT}
+          SMTP_USER=${SERV_SMTP_USER}
+          SMTP_PASSWORD=${SERV_SMTP_PASSWORD}
+          SMTP_FROM=${SERV_SMTP_FROM}
+          EOF
+          
+          # Secure the file
+          chmod 600 /opt/berutek/.env.serv
+      
+      - name: Pull latest images
         run: |
           cd /opt/berutek
-          docker compose pull app
-          docker compose up -d --no-deps app
-
-      - name: Pull and restart server
+          docker compose pull app serv
+      
+      - name: Start/restart services
         run: |
           cd /opt/berutek
-          docker compose pull serv
-          docker compose up -d --no-deps serv
+          docker compose up -d --no-deps app serv
+      
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for services to start..."
+          sleep 10
+          
+          cd /opt/berutek
+          
+          # Check if app is responding
+          if ! docker compose exec -T app curl -f http://localhost:3000/api/auth/status > /dev/null 2>&1; then
+            echo "❌ App health check failed"
+            docker compose logs app --tail=50
+            exit 1
+          fi
+          
+          echo "✅ App is healthy"
+      
+      - name: Verify database connection
+        run: |
+          cd /opt/berutek
+          
+          # Check app logs for database errors
+          if docker compose logs app | grep -i "ECONNREFUSED\|error.*database\|failed.*connect"; then
+            echo "❌ Database connection error detected"
+            docker compose logs app --tail=100
+            exit 1
+          fi
+          
+          echo "✅ Database connection appears healthy"
+      
+      - name: Show deployment summary
+        if: always()
+        run: |
+          cd /opt/berutek
+          echo "=== Deployment Summary ==="
+          echo ""
+          echo "Running containers:"
+          docker compose ps
+          echo ""
+          echo "Recent logs (app):"
+          docker compose logs app --tail=20
+          echo ""
+          echo "Recent logs (serv):"
+          docker compose logs serv --tail=20
