@@ -65,63 +65,63 @@ jobs:
       - name: Write server environment
         env:
           # Database
-          SERV_DB_HOST: ${{ secrets.DB_HOST }}
-          SERV_DB_PORT: ${{ secrets.DB_PORT }}
-          SERV_DB_USERNAME: ${{ secrets.DB_USERNAME }}
-          SERV_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          SERV_DB_NAME: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_USERNAME: ${{ secrets.DB_USERNAME }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_NAME: ${{ secrets.DB_NAME }}
           # Auth secrets
-          SERV_SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
-          SERV_JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
-          SERV_JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
-          SERV_ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
+          SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
+          JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
+          JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
+          ENCRYPTION_KEY: ${{ secrets.ENCRYPTION_KEY }}
           # OIDC
-          SERV_OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
-          SERV_OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
-          SERV_OIDC_ISSUER_URL: ${{ secrets.OIDC_ISSUER_URL }}
-          SERV_OIDC_DISCOVERY_URL: ${{ secrets.OIDC_DISCOVERY_URL }}
-          SERV_OIDC_CALLBACK_URL: ${{ secrets.OIDC_CALLBACK_URL }}
+          OIDC_CLIENT_ID: ${{ secrets.OIDC_CLIENT_ID }}
+          OIDC_CLIENT_SECRET: ${{ secrets.OIDC_CLIENT_SECRET }}
+          OIDC_ISSUER_URL: ${{ secrets.OIDC_ISSUER_URL }}
+          OIDC_DISCOVERY_URL: ${{ secrets.OIDC_DISCOVERY_URL }}
+          OIDC_CALLBACK_URL: ${{ secrets.OIDC_CALLBACK_URL }}
           #Frontend
-          SERV_FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
+          FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           # Application
-          SERV_APP_CORS_ORIGIN: ${{ secrets.APP_CORS_ORIGIN }}
+          APP_CORS_ORIGIN: ${{ secrets.APP_CORS_ORIGIN }}
           # Mail
-          SERV_SMTP_HOST: ${{ secrets.SMTP_HOST }}
-          SERV_SMTP_PORT: ${{ secrets.SMTP_PORT }}
-          SERV_SMTP_USER: ${{ secrets.SMTP_USER }}
-          SERV_SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          SERV_SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
         run: |
           {
             echo "NODE_ENV=production"
             echo "PORT=3030"
             echo "API_PREFIX=/api/v1"
-            echo "DB_HOST=${SERV_DB_HOST}"
-            echo "DB_PORT=${SERV_DB_PORT}"
-            echo "DB_USERNAME=${SERV_DB_USERNAME}"
-            echo "DB_PASSWORD=${SERV_DB_PASSWORD}"
-            echo "DB_NAME=${SERV_DB_NAME}"
+            echo "DB_HOST=${DB_HOST}"
+            echo "DB_PORT=${DB_PORT}"
+            echo "DB_USERNAME=${DB_USERNAME}"
+            echo "DB_PASSWORD=${DB_PASSWORD}"
+            echo "DB_NAME=${DB_NAME}"
             echo "DB_SYNCHRONIZE=false"
             echo "DB_LOGGING=false"
-            echo "SESSION_SECRET=${SERV_SESSION_SECRET}"
-            echo "JWT_ACCESS_SECRET=${SERV_JWT_ACCESS_SECRET}"
+            echo "SESSION_SECRET=${SESSION_SECRET}"
+            echo "JWT_ACCESS_SECRET=${JWT_ACCESS_SECRET}"
             echo "JWT_ACCESS_EXPIRATION=15m"
-            echo "JWT_REFRESH_SECRET=${SERV_JWT_REFRESH_SECRET}"
+            echo "JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET}"
             echo "JWT_REFRESH_EXPIRATION=7d"
             echo "JWT_ISSUER=berutek"
-            echo "FRONTEND_URL=${SERV_FRONTEND_URL}"
-            echo "ENCRYPTION_KEY=${SERV_ENCRYPTION_KEY}"
-            echo "APP_CORS_ORIGIN=${SERV_APP_CORS_ORIGIN}"
-            echo "OIDC_CLIENT_ID=${SERV_OIDC_CLIENT_ID}"
-            echo "OIDC_CLIENT_SECRET=${SERV_OIDC_CLIENT_SECRET}"
-            echo "OIDC_ISSUER_URL=${SERV_OIDC_ISSUER_URL}"
-            echo "OIDC_DISCOVERY_URL=${SERV_OIDC_DISCOVERY_URL}"
-            echo "OIDC_CALLBACK_URL=${SERV_OIDC_CALLBACK_URL}"
-            echo "SMTP_HOST=${SERV_SMTP_HOST}"
-            echo "SMTP_PORT=${SERV_SMTP_PORT}"
-            echo "SMTP_USER=${SERV_SMTP_USER}"
-            echo "SMTP_PASSWORD=${SERV_SMTP_PASSWORD}"
-            echo "SMTP_FROM=${SERV_SMTP_FROM}"
+            echo "FRONTEND_URL=${FRONTEND_URL}"
+            echo "ENCRYPTION_KEY=${ENCRYPTION_KEY}"
+            echo "APP_CORS_ORIGIN=${APP_CORS_ORIGIN}"
+            echo "OIDC_CLIENT_ID=${OIDC_CLIENT_ID}"
+            echo "OIDC_CLIENT_SECRET=${OIDC_CLIENT_SECRET}"
+            echo "OIDC_ISSUER_URL=${OIDC_ISSUER_URL}"
+            echo "OIDC_DISCOVERY_URL=${OIDC_DISCOVERY_URL}"
+            echo "OIDC_CALLBACK_URL=${OIDC_CALLBACK_URL}"
+            echo "SMTP_HOST=${SMTP_HOST}"
+            echo "SMTP_PORT=${SMTP_PORT}"
+            echo "SMTP_USER=${SMTP_USER}"
+            echo "SMTP_PASSWORD=${SMTP_PASSWORD}"
+            echo "SMTP_FROM=${SMTP_FROM}"
           } > /opt/berutek/.env.serv
 
       - name: Pull and restart UI
