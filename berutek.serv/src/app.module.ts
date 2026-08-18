@@ -5,12 +5,11 @@ import databaseConfig from './config/database.config';
 import { UserModule } from './modules/users/user.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 import configuration from './config/configuration';
 import { AuthModule } from './modules/auth/auth.module';
-import { ReviewModule } from './modules/reviews/reviews.module';
 import { CustomerModule } from './modules/customers/customer.module';
+import { LeadModule } from './modules/leads/lead.module';
 
 @Module({
   imports: [
@@ -22,6 +21,7 @@ import { CustomerModule } from './modules/customers/customer.module';
     }),
     DatabaseModule,
     UserModule,
+    LeadModule,
     ThrottlerModule.forRoot([
       {name: 'short', ttl: 1000, limit: 10},
       {name: 'medium', ttl: 60000, limit: 60},
@@ -29,10 +29,9 @@ import { CustomerModule } from './modules/customers/customer.module';
     ]),
     AuthModule,
     CustomerModule,
-    ReviewModule,
   ],
   providers: [
-    {provide: APP_GUARD, useClass: JwtAuthGuard},
+    //{provide: APP_GUARD, useClass: JwtAuthGuard},
     {provide: APP_GUARD, useClass: ThrottlerGuard},
   ],
 })

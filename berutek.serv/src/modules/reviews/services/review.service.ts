@@ -11,26 +11,26 @@ export class ReviewService {
     constructor(private readonly repo: ReviewRepository) {}
 
     findAll(): Promise<IReview[]> {
-        return this.repo.findAll();
+        return this.repo.findAll() as unknown as Promise<IReview[]>;
     }
 
     findByUserId(userId: string): Promise<IReview[]> {
-        return this.repo.findByUserId(userId);
+        return this.repo.findByUserId(userId) as unknown as Promise<IReview[]>;
     }
 
     async findOne(id: string): Promise<IReview> {
-        const review = await this.repo.findOneById(id);
+        const review = await this.repo.findOneById(id) as unknown as IReview | null;
         if (!review) throw new NotFoundException('Review ' + id);
-        return review;
+        return review as IReview;
     }
 
     create(dto: CreateReviewDto): Promise<IReview> {
-        return this.repo.create(dto);
+        return this.repo.create(dto) as unknown as Promise<IReview>;
     }
 
     async update(id: string, dto: UpdateReviewDto): Promise<IReview> {
         await this.findOne(id);
-        return this.repo.update(id, dto);
+        return this.repo.update(id, dto) as unknown as Promise<IReview>;
     }
 
     async delete(id: string): Promise<void> {

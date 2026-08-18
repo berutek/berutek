@@ -23,7 +23,7 @@ constructor(
     // Verify user still exists and is active. This protects against
     // tokens issued before a user is deactivated.
     const user = await this.userRepo.findOne({
-      where: { id: payload.sub, isDeleted: false },
+      where: { id: payload.sub, isActive: true },
     });
     if (!user) throw new UnauthorizedException('User not found or inactive');
     return payload;

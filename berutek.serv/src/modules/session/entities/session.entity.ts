@@ -43,7 +43,7 @@ export class SessionEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz' })
   updatedAt: Date;
 
-  @ManyToOne(() => User, (user) => user.sessions, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  // @ManyToOne(() => User, (user) => user.sessions, { onDelete: 'CASCADE' })
+  // @JoinColumn({ name: 'user_id' })
+  // user: User;
 }

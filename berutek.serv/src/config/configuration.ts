@@ -19,6 +19,17 @@ export default () => ({
     twoFactor: {
         appName: process.env.TWO_FACTOR_APP_NAME || 'BeruTek',
     },
+    session: {
+        secret: process.env.SESSION_SECRET,
+    },
+    oidc: {
+        clientId: process.env.OIDC_CLIENT_ID,
+        clientSecret: process.env.OIDC_CLIENT_SECRET,
+        issuerUrl: process.env.OIDC_ISSUER_URL,
+        discoveryUrl: process.env.OIDC_DISCOVERY_URL,
+        callbackUrl: process.env.OIDC_CALLBACK_URL,
+        frontendUrl: process.env.FRONTEND_URL,
+    },
     mail: {
         host: process.env.SMTP_HOST,
         port: parseInt(process.env.SMTP_PORT || "587", 10),

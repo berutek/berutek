@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config/dist/config.service';
 import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common/pipes/validation.pipe';
 import { Logger } from '@nestjs/common/services/logger.service';
+import session from 'express-session';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
@@ -13,8 +14,23 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const port = configService.get<number>('app.port') || 3000;
   const apiPrefix = configService.get<string>('app.apiPrefix')!;
+  const isProd = process.env.NODE_ENV === 'production';
 
   app.use(helmet())
+
+  app.use(
+    session({
+      secret: configService.get<string>('session.secret')!,
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+        httpOnly: true,
+        secure: isProd,
+        sameSite: isProd ? 'lax' : 'lax',
+        maxAge: 10 * 60 * 1000, // 10 minutes — only needed for the OIDC handshake
+      },
+    }),
+  );
 
   app.enableCors({
     origin: configService.get<string>('app.corsOrigin') || '*',

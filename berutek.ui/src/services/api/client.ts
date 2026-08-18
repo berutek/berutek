@@ -1,50 +1,35 @@
-import axios, { AxiosInstance, InternalAxiosRequestConfig } from "axios";
+import axios, { AxiosInstance } from 'axios';
+import { API_ENDPOINTS } from './endpoints';
 
-class ApiClient{
-    private client: AxiosInstance;
-    
-    constructor() {
-        this.client = axios.create({
-            baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api/v1',
-            timeout: 10000,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        this.setupInterceptors();
-    }
+class ApiClient {
+  private readonly client: AxiosInstance;
 
-    setupInterceptors() {
-        this.client.interceptors.request.use((config:InternalAxiosRequestConfig) => {
-            const token = this.getToken();
-            if (token) {
-                config.headers['Authorization'] = `Bearer ${token}`;
-            }
-            return config;
-        }, error => {
-            console.log("Request error:", error);
-            
-            return Promise.reject(error);
-        });
+  constructor() {
+    this.client = axios.create({
+      baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3030/api/v1',
+      timeout: 10000,
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true, // sends the session cookie on every request
+    });
 
-        this.client.interceptors.response.use(response => {
-            return response;
-        }, error => {
-            if (error.response && error.response.status === 401) {
-                localStorage.removeItem('accessToken');
-                window.location.href = '/login';
-            }
-            return Promise.reject(error);
-        });
-    }
+    this.setupInterceptors();
+  }
 
-    getToken() {
-        if (typeof window === 'undefined') return null;
-        return localStorage.getItem('accessToken');
-    }
-    getInstance(){
-        return this.client;
-    }
+  private setupInterceptors() {
+    this.client.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response?.status === 401 && typeof window !== 'undefined') {
+          window.location.href = API_ENDPOINTS.AUTH.LOGIN;
+        }
+        return Promise.reject(error);
+      }
+    );
+  }
+
+  getInstance(): AxiosInstance {
+    return this.client;
+  }
 }
 
 export default new ApiClient();

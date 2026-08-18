@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuditLogEntity, AuditAction } from './entities/audit-log.entity';
-import { LoginAttemptEntity, LoginFailureReason } from './entities/login-attempt.entity';
 
 interface AuditLogData {
   userId?: string;
@@ -12,23 +11,11 @@ interface AuditLogData {
   userAgent?: string;
 }
 
-interface LoginAttemptData {
-  userId?: string;
-  emailAttempted: string;
-  ipAddress: string;
-  userAgent?: string;
-  success: boolean;
-  attemptedAt?: Date;
-  failureReason?: LoginFailureReason;
-}
-
 @Injectable()
 export class AuditService {
   constructor(
     @InjectRepository(AuditLogEntity)
     private readonly auditRepo: Repository<AuditLogEntity>,
-    @InjectRepository(LoginAttemptEntity)
-    private readonly loginAttemptRepo: Repository<LoginAttemptEntity>,
   ) {}
 
   async log(data: AuditLogData): Promise<void> {
@@ -43,15 +30,4 @@ export class AuditService {
     });
   }
 
-  async recordLoginAttempt(data: LoginAttemptData): Promise<void> {
-    await this.loginAttemptRepo.save({
-      userId: data.userId,
-      emailAttempted: data.emailAttempted,
-      ipAddress: data.ipAddress,
-      userAgent: data.userAgent,
-      success: data.success,
-      failureReason: data.failureReason,
-      attemptedAt: data.attemptedAt,
-    });
-  }
 }

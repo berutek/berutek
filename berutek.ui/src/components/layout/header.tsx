@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import ThemeToggle from "../theme/ThemeToggle";
+import { API_ENDPOINTS } from "@/src/services/api/endpoints";
+import { useAuth } from "@/src/hooks/api/useAuth";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -12,6 +14,8 @@ const navLinks = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const {user, isAuthenticated} = useAuth()
 
   return (
     <header className="relative z-10 w-full flex bg-zinc-100 p-2 dark:bg-zinc-900 items-center justify-center mb-3">
@@ -35,6 +39,18 @@ export default function Header() {
         </nav>
 
         <nav className="hidden md:flex items-center space-x-4">
+          {isAuthenticated ? (
+            <div className="flex items-center space-x-3">
+              <span className="text-zinc-900 dark:text-zinc-50">{user?.displayname}</span>
+              <a href={API_ENDPOINTS.AUTH.LOGOUT} className="text-zinc-500 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 text-sm duration-300">
+                Logout
+              </a>
+            </div>
+          ) : (
+            <a href={API_ENDPOINTS.AUTH.LOGIN} className="text-zinc-900 dark:text-zinc-50  hover:text-zinc-700  duration-300 dark:hover:text-zinc-200">
+              Login
+            </a>
+          )}
           <a href="/contact" className="text-zinc-50 dark:text-zinc-900 dark:hover:bg-zinc-200 hover:text-zinc-100 hover:bg-zinc-700 duration-300 dark:hover:text-zinc-800 p-2 rounded-full bg-zinc-900 dark:bg-zinc-50">
             Get in touch
           </a>
@@ -76,6 +92,18 @@ export default function Header() {
               </a>
             </li> */}
           </ul>
+          {isAuthenticated ? (
+              <div className="flex items-center justify-between w-full px-1">
+                <span className="text-zinc-800 dark:text-zinc-200">{user?.displayname}</span>
+                <a href={API_ENDPOINTS.AUTH.LOGOUT} className="text-red-500 dark:text-red-400 hover:text-zinc-800 dark:hover:text-zinc-200 text-sm duration-300">
+                  Logout
+                </a>
+              </div>
+            ) : (
+              <a href={API_ENDPOINTS.AUTH.LOGIN} className="text-zinc-200 w-full text-center dark:text-zinc-800 dark:hover:bg-zinc-300 hover:text-zinc-100 hover:bg-zinc-500 duration-300 dark:hover:text-gray-500 p-2 rounded-md bg-zinc-600 dark:bg-zinc-200">
+                Login
+              </a>
+            )}
           <a href="/contact" className="text-zinc-200 w-full text-center dark:text-zinc-800 dark:hover:bg-zinc-300 hover:text-zinc-100 hover:bg-zinc-500 duration-300 dark:hover:text-gray-500 p-2 rounded-md bg-zinc-600 dark:bg-zinc-200">
               Get in touch
             </a>

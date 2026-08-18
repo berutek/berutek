@@ -2,7 +2,6 @@ import { Injectable, Optional } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { User } from "../entities/user.entity";
-import { create } from "domain";
 import { NotFoundException } from "../../../common/exceptions/notfound.exception";
 
 @Injectable()
@@ -14,15 +13,15 @@ export class UserRepository {
     ){}
 
     findAll(): Promise<User[]> {
-        return this.repo.find({where: {isDeleted: false}});
+        return this.repo.find({where: {isActive: true}});
     }
 
     async findOneById(id: string): Promise<User|null> {
-        return await this.repo.findOne({ where: { id, isDeleted: false } })
+        return await this.repo.findOne({ where: { id, isActive: true } })
     }
 
     async findOneByEmail(email: string): Promise<User|null> {
-        return await this.repo.findOne({ where: { email, isDeleted: false } });
+        return await this.repo.findOne({ where: { email, isActive: true } });
     }
 
     create(user: User): Promise<User> {
@@ -36,6 +35,6 @@ export class UserRepository {
     }
 
     async delete(id: string): Promise<void> {
-        await this.repo.update(id, { isDeleted: true });
+        await this.repo.update(id, { isActive: false });
     }
 }

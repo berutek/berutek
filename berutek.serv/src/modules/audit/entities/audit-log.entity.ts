@@ -36,7 +36,7 @@ export class AuditLogEntity {
     @Column({ name: 'user_agent', type: 'text', nullable: true })
     userAgent: string;
 
-    @ManyToOne(() => User, (user) => user.auditLogs, { onDelete: 'SET NULL', nullable: true })
-    @JoinColumn({ name: 'user_id' })
-    user:User
+    // @ManyToOne(() => User, (user) => user.auditLogs, { onDelete: 'SET NULL', nullable: true })
+    // @JoinColumn({ name: 'user_id' })
+    // user:User
 }

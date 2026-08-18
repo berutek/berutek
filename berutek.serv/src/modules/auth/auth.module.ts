@@ -1,43 +1,60 @@
 import { Module } from "@nestjs/common";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import { User } from "../users/entities/user.entity";
-import { TwoFactorAuth } from "../two-factor/entities/two-factor.entity";
-import { RecoveryCode } from "../two-factor/entities/recovery-code.entity";
-import { RefreshTokenEntity } from "../tokens/entities/refresh-token.entity";
-import { LoginAttemptEntity } from "../audit/entities/login-attempt.entity";
-import { AuditLogEntity } from "../audit/entities/audit-log.entity";
-import { SessionEntity } from "../session/entities/session.entity";
+import { ConfigService } from "@nestjs/config";
 import { PassportModule } from "@nestjs/passport";
-import { JwtModule } from "@nestjs/jwt";
-import { ConfigModule } from "@nestjs/config/dist/config.module";
-import { ConfigService } from "@nestjs/config/dist/config.service";
-import { AuthController } from "./controllers/auth.controller";
 import { AuthService } from "./services/auth.service";
-import { TokenService } from "../tokens/token.service";
-import { TwoFactorService } from "../two-factor/two-factor.service";
-import { JwtStrategy } from "./strategies/jwt.strategy";
-import { SessionService } from "../session/session.service";
-import { AuditService } from "../audit/audit.service";
+import { UserModule } from "../users/user.module";
+import { UserService } from "../users/services/user.service";
+import { initializeOidcClient, OidcStrategy } from "./strategies/oidc.strategy";
+import { AuthController } from "./controllers/auth.controller";
+import type { Client } from "openid-client";
 
+// @Module({
+//     imports: [
+//         TypeOrmModule.forFeature([User, TwoFactorAuth, RecoveryCode, RefreshTokenEntity, SessionEntity, AuditLogEntity, LoginAttemptEntity]),
+//         PassportModule.register({ defaultStrategy: 'jwt' }),
+//         JwtModule.registerAsync({
+//             imports: [ConfigModule],
+//             inject: [ConfigService],
+//             useFactory: (configService: ConfigService) => ({
+//                 secret: configService.get<string>('jwt.accessSecret'),
+//                 signOptions: {
+//                     expiresIn: configService.get<string>('jwt.accessExpiration') as any,
+//                     issuer: configService.get<string>('jwt.issuer'),
+//                     audience: "nestjs-auth-api"
+//                 },
+//             }),
+//         }),
+//     ],
+//     controllers: [AuthController],
+//     providers: [AuthService, TwoFactorService, TokenService, JwtStrategy, SessionService, AuditService],
+//     exports: [AuthService, TokenService]
+// })
 @Module({
-    imports: [
-        TypeOrmModule.forFeature([User, TwoFactorAuth, RecoveryCode, RefreshTokenEntity, SessionEntity, AuditLogEntity, LoginAttemptEntity]),
-        PassportModule.register({ defaultStrategy: 'jwt' }),
-        JwtModule.registerAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
-            useFactory: (configService: ConfigService) => ({
-                secret: configService.get<string>('jwt.accessSecret'),
-                signOptions: {
-                    expiresIn: configService.get<string>('jwt.accessExpiration') as any,
-                    issuer: configService.get<string>('jwt.issuer'),
-                    audience: "nestjs-auth-api"
-                },
-            }),
-        }),
-    ],
-    controllers: [AuthController],
-    providers: [AuthService, TwoFactorService, TokenService, JwtStrategy, SessionService, AuditService],
-    exports: [AuthService, TokenService]
+  imports: [PassportModule, UserModule],
+  controllers: [AuthController],
+  providers: [
+    AuthService,
+    {
+      provide: 'OIDC_CLIENT',
+      useFactory: async (configService: ConfigService) => {
+        try {
+          return await initializeOidcClient(configService);
+        } catch (err) {
+          console.error('[AuthModule] OIDC client initialization failed — OIDC login will be unavailable:', err);
+          return null;
+        }
+      },
+      inject: [ConfigService],
+    },
+    {
+      provide: OidcStrategy,
+      useFactory: (client: Client | null, usersService: UserService) => {
+        if (!client) return null;
+        return new OidcStrategy(client, usersService);
+      },
+      inject: ['OIDC_CLIENT', UserService],
+    },
+  ],
+  exports: [AuthService],
 })
 export class AuthModule {}

@@ -14,26 +14,26 @@ export class UserController {
     // Controller methods will go here
     constructor(private readonly userService: UserService) {}
 
-    @UseGuards(JwtAuthGuard)
-    @Get()
-    findAll() {
-        return this.userService.findAll();
-    }
+    // @UseGuards(JwtAuthGuard)
+    // @Get()
+    // findAll() {
+    //     return this.userService.findAll();
+    // }
 
-    @UseGuards(JwtAuthGuard) 
-    @Get(':id')
-    findOne(@Param('id', new ParseUUIDPipe({errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE})) id: string) {
-        return this.userService.findOne(id);
-    }
+    // @UseGuards(JwtAuthGuard) 
+    // @Get(':id')
+    // findOne(@Param('id', new ParseUUIDPipe({errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE})) id: string) {
+    //     return this.userService.findOne(id);
+    // }
 
-    @Put(':id')
-    @UsePipes(new ZodValidationPipe(createUserSchema))
-    async update(@Param('id') id: string, @Body() user: User) {
-        return this.userService.update(id, user);
-    }
+    // @Put(':id')
+    // @UsePipes(new ZodValidationPipe(createUserSchema))
+    // async update(@Param('id') id: string, @Body() user: User) {
+    //     return this.userService.update(id, user);
+    // }
 
-    @Delete(':id')
-    delete(@Param('id') id: string) {
-        return this.userService.delete(id);
-    }
+    // @Delete(':id')
+    // delete(@Param('id') id: string) {
+    //     return this.userService.delete(id);
+    // }
 }

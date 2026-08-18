@@ -10,17 +10,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const { setUser, clearAuth } = useAuthStore();
 
   useEffect(() => {
-    const token = localStorage.getItem('accessToken');
-    if (!token) return;
-
     apiClient.getInstance()
-      .get<User>(API_ENDPOINTS.AUTH.PROFILE)
-      .then((res) => setUser(res.data))
-      .catch(() => {
-        localStorage.removeItem('accessToken');
-        localStorage.removeItem('refreshToken');
-        clearAuth();
-      });
+      .get<User | { message: string }>(API_ENDPOINTS.AUTH.PROFILE)
+      .then((res) => {
+        console.log('AuthProvider: Profile response:', res.data); // Log the response data for debugging
+        // The profile endpoint returns { message: 'Not authenticated' } when no session exists
+        if ('username' in res.data) {
+          setUser(res.data as User);
+        }
+      })
+      .catch(() => clearAuth());
   }, [setUser, clearAuth]);
 
   return <>{children}</>;

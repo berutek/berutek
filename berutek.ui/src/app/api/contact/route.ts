@@ -1,3 +1,4 @@
+import { API_ENDPOINTS } from "@/src/services/api/endpoints";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -22,8 +23,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "reCAPTCHA verification failed" }, { status: 400 });
   }
 
-  // TODO: send email or store submission
-  console.log("Contact form submission:", form);
+  const leadRes = await fetch(`${API_ENDPOINTS.LEADS.CREATE}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(form),
+  });
+
+  if (!leadRes.ok) {
+    return NextResponse.json({ error: 'Failed to store lead' }, { status: 502 });
+  }
 
   return NextResponse.json({ ok: true });
 }
