@@ -81,6 +81,8 @@ jobs:
           SERV_OIDC_ISSUER_URL: ${{ secrets.OIDC_ISSUER_URL }}
           SERV_OIDC_DISCOVERY_URL: ${{ secrets.OIDC_DISCOVERY_URL }}
           SERV_OIDC_CALLBACK_URL: ${{ secrets.OIDC_CALLBACK_URL }}
+          #Frontend
+          SERV_FRONTEND_URL: ${{ secrets.FRONTEND_URL }}
           # Application
           SERV_APP_CORS_ORIGIN: ${{ secrets.APP_CORS_ORIGIN }}
           # Mail
@@ -107,6 +109,7 @@ jobs:
             echo "JWT_REFRESH_SECRET=${SERV_JWT_REFRESH_SECRET}"
             echo "JWT_REFRESH_EXPIRATION=7d"
             echo "JWT_ISSUER=berutek"
+            echo "FRONTEND_URL=${SERV_FRONTEND_URL}"
             echo "ENCRYPTION_KEY=${SERV_ENCRYPTION_KEY}"
             echo "APP_CORS_ORIGIN=${SERV_APP_CORS_ORIGIN}"
             echo "OIDC_CLIENT_ID=${SERV_OIDC_CLIENT_ID}"
