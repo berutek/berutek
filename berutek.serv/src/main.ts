@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config/dist/config.service';
 import helmet from 'helmet';
@@ -10,9 +11,13 @@ import { DataSource } from 'typeorm';
 import { Session } from './modules/auth/entities/session.entity';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     logger: ['error', 'warn', 'log'],
   });
+
+  // TLS terminates at the reverse proxy; without this, express-session sees the
+  // connection as insecure and refuses to set the secure session cookie.
+  app.set('trust proxy', 1);
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('app.port') || 3000;
@@ -32,6 +37,7 @@ async function bootstrap() {
       secret: configService.get<string>('session.secret')!,
       resave: false,
       saveUninitialized: false,
+      proxy: isProd,
       cookie: {
         httpOnly: true,
         secure: isProd,
