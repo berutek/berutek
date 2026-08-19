@@ -72,7 +72,7 @@ jobs:
       
       - name: Create .env.serv file
         env:
-          # Database (CRITICAL: use 'postgres' not 'localhost')
+          # Database
           SERV_DB_HOST: ${{ secrets.DB_HOST }}
           SERV_DB_PORT: ${{ secrets.DB_PORT }}
           SERV_DB_USERNAME: ${{ secrets.DB_USERNAME }}
@@ -99,7 +99,7 @@ jobs:
           SERV_SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
           SERV_SMTP_FROM: ${{ secrets.SMTP_FROM }}
         run: |
-          cat > /opt/berutek/.env.serv << 'EOF'
+          cat > /opt/berutek/.env.serv << EOF
           NODE_ENV=production
           PORT=3030
           API_PREFIX=/api/v1
@@ -140,6 +140,9 @@ jobs:
           SMTP_PASSWORD=${SERV_SMTP_PASSWORD}
           SMTP_FROM=${SERV_SMTP_FROM}
           EOF
+
+          envsubst < /opt/berutek/.env.serv.template > /opt/berutek/.env.serv
+          rm /opt/berutek/.env.serv.template
           
           # Secure the file
           chmod 600 /opt/berutek/.env.serv
