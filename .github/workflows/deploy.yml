@@ -72,12 +72,18 @@ jobs:
       
       - name: Create .env.serv file
         env:
+          # General
+          SERV_NODE_ENV: production
+          SERV_PORT: 3030
+          SERV_API_PREFIX: ${{ secrets.API_PREFIX }}
           # Database
           SERV_DB_HOST: ${{ secrets.DB_HOST }}
           SERV_DB_PORT: ${{ secrets.DB_PORT }}
           SERV_DB_USERNAME: ${{ secrets.DB_USERNAME }}
           SERV_DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           SERV_DB_NAME: ${{ secrets.DB_NAME }}
+          SERV_DB_SYNCHRONIZE: ${{ secrets.DB_SYNCHRONIZE }}  
+          SERV_DB_LOGGING: ${{ secrets.DB_LOGGING }}
           # Auth
           SERV_SESSION_SECRET: ${{ secrets.SESSION_SECRET }}
           SERV_JWT_ACCESS_SECRET: ${{ secrets.JWT_ACCESS_SECRET }}
@@ -100,9 +106,9 @@ jobs:
           SERV_SMTP_FROM: ${{ secrets.SMTP_FROM }}
         run: |
           cat > /opt/berutek/.env.serv << EOF
-          NODE_ENV=production
-          PORT=3030
-          API_PREFIX=/api/v1
+          NODE_ENV=${SERV_NODE_ENV}
+          PORT=${SERV_PORT}
+          API_PREFIX=${SERV_API_PREFIX}
           
           # Database
           DB_HOST=${SERV_DB_HOST}
@@ -110,8 +116,8 @@ jobs:
           DB_USERNAME=${SERV_DB_USERNAME}
           DB_PASSWORD=${SERV_DB_PASSWORD}
           DB_NAME=${SERV_DB_NAME}
-          DB_SYNCHRONIZE=false
-          DB_LOGGING=false
+          DB_SYNCHRONIZE=${SERV_DB_SYNCHRONIZE}
+          DB_LOGGING=${SERV_DB_LOGGING}
           
           # Session & JWT
           SESSION_SECRET=${SERV_SESSION_SECRET}
