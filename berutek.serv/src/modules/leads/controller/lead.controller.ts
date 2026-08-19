@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Post, UseGuards } from "@nestjs/common";
 import { LeadService } from "../services/lead.service";
 import { Lead } from "../entities/lead.entity";
-import { RoleGuard } from "../../auth/guards/oidc-auth.guard";
+import { OidcAuthGuard, RoleGuard } from "../../auth/guards/oidc-auth.guard";
 import { Roles } from "../../auth/decorators/roles.decorator";
 
 @Controller('leads')
@@ -31,6 +31,8 @@ export class LeadController {
     }
 
     @Delete(':uuid')
+    @Roles('admin')
+    @UseGuards(RoleGuard)
     async deleteLead(@Param('uuid') uuid: string) {
         return this.leadService.deleteLead(uuid);
     }

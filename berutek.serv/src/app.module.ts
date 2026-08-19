@@ -10,6 +10,7 @@ import configuration from './config/configuration';
 import { AuthModule } from './modules/auth/auth.module';
 import { CustomerModule } from './modules/customers/customer.module';
 import { LeadModule } from './modules/leads/lead.module';
+import { ServiceModule } from './modules/services/service.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { LeadModule } from './modules/leads/lead.module';
     ]),
     AuthModule,
     CustomerModule,
+    ServiceModule,
   ],
   providers: [
     //{provide: APP_GUARD, useClass: JwtAuthGuard},
