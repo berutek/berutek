@@ -24,7 +24,10 @@ export class AuthController {
   async callback(@Req() req: Request, @Res() res: Response) {
     try {
       const expectedState = req.session.oidcState;
-      delete req.session.oidcState;
+
+      if(!expectedState || req.query.state !== expectedState) {
+        return res.status(400).json({ message: 'Invalid state parameter' });
+      }
       const { user, tokenSet } = await this.authService.handleCallback(req.query, expectedState!);
 
       // Store user in session

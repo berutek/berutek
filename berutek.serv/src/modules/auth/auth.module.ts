@@ -7,6 +7,9 @@ import { UserService } from "../users/services/user.service";
 import { initializeOidcClient, OidcStrategy } from "./strategies/oidc.strategy";
 import { AuthController } from "./controllers/auth.controller";
 import type { Client } from "openid-client";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { Session } from "./entities/session.entity";
+import { SessionStore } from "./services/session.store";
 
 // @Module({
 //     imports: [
@@ -30,10 +33,12 @@ import type { Client } from "openid-client";
 //     exports: [AuthService, TokenService]
 // })
 @Module({
-  imports: [PassportModule, UserModule],
+  imports: [PassportModule, UserModule, TypeOrmModule.forFeature([Session])],
   controllers: [AuthController],
   providers: [
     AuthService,
+    OidcStrategy,
+    SessionStore,
     {
       provide: 'OIDC_CLIENT',
       useFactory: async (configService: ConfigService) => {
@@ -55,6 +60,6 @@ import type { Client } from "openid-client";
       inject: ['OIDC_CLIENT', UserService],
     },
   ],
-  exports: [AuthService],
+  exports: [AuthService, 'OIDC_CLIENT', SessionStore],
 })
 export class AuthModule {}
