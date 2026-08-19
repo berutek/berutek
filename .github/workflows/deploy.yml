@@ -140,9 +140,6 @@ jobs:
           SMTP_PASSWORD=${SERV_SMTP_PASSWORD}
           SMTP_FROM=${SERV_SMTP_FROM}
           EOF
-
-          envsubst < /opt/berutek/.env.serv.template > /opt/berutek/.env.serv
-          rm /opt/berutek/.env.serv.template
           
           # Secure the file
           chmod 600 /opt/berutek/.env.serv
