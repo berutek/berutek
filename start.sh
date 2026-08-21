@@ -118,8 +118,8 @@ print_info "Both services are running!"
 print_info "Press Ctrl+C to stop both services"
 echo ""
 print_info "Log location:"
-print_info "  NestJS: $NESTJS_LOG"
-print_info "  Next.js: $NEXTJS_LOG"
+print_info "  SERV: $NESTJS_LOG"
+print_info "  UI: $NEXTJS_LOG"
 echo ""
 
 # Wait for both processes
