@@ -17,6 +17,7 @@ import {
   XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { BlogPost, CATEGORY_STYLES } from './DetailsModal'
+import type { BlogPayload } from '@services/api/blogs'
 import { EditorContent, useEditor, useEditorState, type Editor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import { Color, TextStyle } from '@tiptap/extension-text-style'
@@ -208,13 +209,14 @@ function EditorToolbar({ editor }: { editor: Editor | null }) {
 
 interface Props {
   initial?: BlogPost
-  onSubmit: (post: BlogPost) => void
+  onSubmit: (post: BlogPayload) => void
   onClose?: () => void
+  submitting?: boolean
+  error?: string | null
 }
 
-export function PostFormModal({ initial, onSubmit, onClose }: Props) {
+export function PostFormModal({ initial, onSubmit, onClose, submitting, error }: Props) {
   const [title, setTitle] = useState(initial?.title ?? '')
-  const [date, setDate] = useState(initial?.date ?? new Date().toISOString().slice(0, 10))
   const [category, setCategory] = useState<BlogPost['category']>(initial?.category)
   const [description, setDescription] = useState(initial?.description ?? '')
   const [content, setContent] = useState(initial?.content ?? '')
@@ -280,7 +282,8 @@ export function PostFormModal({ initial, onSubmit, onClose }: Props) {
 
   const removeTag = (tag: string) => setTags((prev) => prev.filter((t) => t !== tag))
 
-  const canSubmit = title.trim() !== '' && date !== '' && !contentEmpty
+  // Description is required by the API's create schema
+  const canSubmit = title.trim() !== '' && description.trim() !== '' && !contentEmpty && !submitting
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -288,7 +291,6 @@ export function PostFormModal({ initial, onSubmit, onClose }: Props) {
     const pendingTags = tagDraft.trim() ? [...tags, ...tagDraft.split(',').map((t) => t.trim().replace(/^#/, '')).filter(Boolean)] : tags
     onSubmit({
       title: title.trim(),
-      date,
       category,
       description: description.trim(),
       content,
@@ -333,35 +335,24 @@ export function PostFormModal({ initial, onSubmit, onClose }: Props) {
         />
       </Field>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <Field label="Date" required>
-          <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className={`${inputClass} font-mono`}
-          />
-        </Field>
+      <Field label="Category">
+        <div className="flex items-center gap-2 h-full">
+          {CATEGORIES.map((cat) => (
+            <button
+              key={cat}
+              type="button"
+              onClick={() => setCategory(category === cat ? undefined : cat)}
+              className={`px-2 py-0.5 rounded-md text-xs font-mono font-medium transition-opacity duration-300 ${CATEGORY_STYLES[cat]} ${
+                category === cat ? 'ring-2 ring-zinc-900 dark:ring-zinc-100' : 'opacity-50 hover:opacity-100'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </Field>
 
-        <Field label="Category">
-          <div className="flex items-center gap-2 h-full">
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setCategory(category === cat ? undefined : cat)}
-                className={`px-2 py-0.5 rounded-md text-xs font-mono font-medium transition-opacity duration-300 ${CATEGORY_STYLES[cat]} ${
-                  category === cat ? 'ring-2 ring-zinc-900 dark:ring-zinc-100' : 'opacity-50 hover:opacity-100'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </Field>
-      </div>
-
-      <Field label="Description">
+      <Field label="Description" required>
         <textarea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -416,6 +407,11 @@ export function PostFormModal({ initial, onSubmit, onClose }: Props) {
       </Field>
 
       {/* Actions */}
+      {error && (
+        <p className="text-sm text-red-600 dark:text-red-400" role="alert">
+          {error}
+        </p>
+      )}
       <div className="flex items-center justify-end gap-4">
         {onClose && (
           <button
@@ -431,7 +427,7 @@ export function PostFormModal({ initial, onSubmit, onClose }: Props) {
           disabled={!canSubmit}
           className="text-sm text-zinc-50 dark:text-zinc-900 bg-zinc-900 dark:bg-zinc-50 hover:bg-zinc-700 dark:hover:bg-zinc-200 px-4 py-2 rounded-full duration-300 disabled:opacity-40 disabled:cursor-not-allowed"
         >
-          {initial ? 'Save changes' : 'Create post'}
+          {submitting ? 'Saving…' : initial ? 'Save changes' : 'Create post'}
         </button>
       </div>
 

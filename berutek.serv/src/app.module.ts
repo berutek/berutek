@@ -11,6 +11,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CustomerModule } from './modules/customers/customer.module';
 import { LeadModule } from './modules/leads/lead.module';
 import { ServiceModule } from './modules/services/service.module';
+import { BlogModule } from './modules/blog/blog.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { ServiceModule } from './modules/services/service.module';
     AuthModule,
     CustomerModule,
     ServiceModule,
+    BlogModule,
   ],
   providers: [
     //{provide: APP_GUARD, useClass: JwtAuthGuard},

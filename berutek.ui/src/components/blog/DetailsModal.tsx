@@ -1,13 +1,16 @@
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
 export interface BlogPost {
+  /** Present once the post is persisted; new posts get it from the API */
+  id?: string
   title: string
-  date: string
   description: string
   tags: string[]
   /** HTML-formatted post body, as stored in the database */
   content: string
   category?: 'update' | 'thought' | 'release'
+  createdAt: string
+  updatedAt?: string
 }
 
 export const CATEGORY_STYLES: Record<NonNullable<BlogPost['category']>, string> = {
@@ -17,7 +20,8 @@ export const CATEGORY_STYLES: Record<NonNullable<BlogPost['category']>, string> 
 }
 
 export function formatPostDate(date: string) {
-  return new Date(`${date}T00:00:00`).toLocaleDateString('en-US', {
+  // Accepts both full ISO timestamps (createdAt) and plain YYYY-MM-DD dates
+  return new Date(date.includes('T') ? date : `${date}T00:00:00`).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -46,8 +50,13 @@ export function DetailsModal({ post, onClose }: Props) {
               </span>
             )}
             <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">
-              {formatPostDate(post.date)}
+              {formatPostDate(post.createdAt)}
             </span>
+            {post.updatedAt && formatPostDate(post.updatedAt) !== formatPostDate(post.createdAt) && (
+              <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500">
+                · updated {formatPostDate(post.updatedAt)}
+              </span>
+            )}
           </div>
         </div>
         {onClose && (

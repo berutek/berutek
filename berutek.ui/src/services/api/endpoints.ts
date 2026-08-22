@@ -11,4 +11,8 @@ export const API_ENDPOINTS = {
   LEADS: {
     CREATE: `${API_BASE_URL}/leads`,
   },
+  BLOGS: {
+    LIST: `${API_BASE_URL}/blogs`,
+    BY_ID: (id: string) => `${API_BASE_URL}/blogs/${encodeURIComponent(id)}`,
+  },
 } as const;
