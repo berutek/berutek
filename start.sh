@@ -95,7 +95,8 @@ stream_logs() {
 (
     cd "$NESTJS_DIR"
     print_info "Starting NestJS from $NESTJS_DIR"
-    npm run start 2>&1 | while IFS= read -r line; do
+    # start:dev (watch mode) so backend code changes are picked up without a manual restart
+    npm run start:dev 2>&1 | while IFS= read -r line; do
         echo -e "${NESTJS_LABEL} $line"
     done
 ) > >(tee -a "$NESTJS_LOG") 2>&1 &

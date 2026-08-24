@@ -1,6 +1,9 @@
+import { isAxiosError } from 'axios';
 import type { BlogPost } from '@/src/components/blog/DetailsModal';
+import apiClient from './client';
+import { API_ENDPOINTS } from './endpoints';
 
-/** Blog record as returned by the NestJS backend (proxied through /api/blog) */
+/** Blog record as returned by the NestJS backend */
 export interface ApiBlog {
   id: string;
   title: string;
@@ -35,49 +38,44 @@ export function mapBlogToPost(blog: ApiBlog): BlogPost {
   };
 }
 
-async function handle<T>(res: Response): Promise<T> {
-  const body = await res.json().catch(() => null);
-  if (!res.ok) {
+function toApiError(err: unknown): Error {
+  if (isAxiosError(err)) {
+    const body = err.response?.data;
     const message =
       (Array.isArray(body?.details) && body.details.map((d: { message: string }) => d.message).join(', ')) ||
       body?.message ||
-      `Request failed (${res.status})`;
-    throw new Error(message);
+      `Request failed (${err.response?.status ?? 'network error'})`;
+    return new Error(message);
   }
-  return body as T;
+  return err instanceof Error ? err : new Error('Request failed');
+}
+
+// Requests go straight to the backend (withCredentials on the axios client),
+// so the session cookie is sent to the API host and admin guards can see it.
+async function request<T>(fn: () => Promise<{ data: T }>): Promise<T> {
+  try {
+    const { data } = await fn();
+    return data;
+  } catch (err) {
+    throw toApiError(err);
+  }
 }
 
 export async function fetchPosts(): Promise<BlogPost[]> {
-  const blogs = await handle<ApiBlog[]>(await fetch('/api/blog', { cache: 'no-store' }));
+  const blogs = await request<ApiBlog[]>(() => apiClient.getInstance().get(API_ENDPOINTS.BLOGS.LIST));
   return blogs.map(mapBlogToPost);
 }
 
 export async function createPost(payload: BlogPayload): Promise<BlogPost> {
-  const blog = await handle<ApiBlog>(
-    await fetch('/api/blog', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }),
-  );
+  const blog = await request<ApiBlog>(() => apiClient.getInstance().post(API_ENDPOINTS.BLOGS.LIST, payload));
   return mapBlogToPost(blog);
 }
 
 export async function updatePost(id: string, payload: BlogPayload): Promise<BlogPost> {
-  const blog = await handle<ApiBlog>(
-    await fetch(`/api/blog/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }),
-  );
+  const blog = await request<ApiBlog>(() => apiClient.getInstance().patch(API_ENDPOINTS.BLOGS.BY_ID(id), payload));
   return mapBlogToPost(blog);
 }
 
 export async function deletePost(id: string): Promise<void> {
-  const res = await fetch(`/api/blog/${id}`, { method: 'DELETE' });
-  if (!res.ok) {
-    const body = await res.json().catch(() => null);
-    throw new Error(body?.message || `Request failed (${res.status})`);
-  }
+  await request(() => apiClient.getInstance().delete(API_ENDPOINTS.BLOGS.BY_ID(id)));
 }

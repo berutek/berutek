@@ -9,10 +9,14 @@ export const API_ENDPOINTS = {
     PROFILE: '/auth/profile',
   },
   LEADS: {
+    // Full URL — called server-side from the /api/contact route
     CREATE: `${API_BASE_URL}/leads`,
   },
   BLOGS: {
-    LIST: `${API_BASE_URL}/blogs`,
-    BY_ID: (id: string) => `${API_BASE_URL}/blogs/${encodeURIComponent(id)}`,
+    // Relative paths — called directly from the browser via the axios client,
+    // so the session cookie reaches the API host (a Next proxy would strip it
+    // in production, where the frontend and API live on different hosts)
+    LIST: '/blogs',
+    BY_ID: (id: string) => `/blogs/${encodeURIComponent(id)}`,
   },
 } as const;

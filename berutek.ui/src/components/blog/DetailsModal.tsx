@@ -39,7 +39,7 @@ export function DetailsModal({ post, onClose }: Props) {
 
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
-        <div>
+        <div className=''>
           <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-50 leading-snug">
             {post.title}
           </h2>

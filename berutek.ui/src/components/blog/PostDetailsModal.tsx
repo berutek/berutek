@@ -289,6 +289,7 @@ export function PostFormModal({ initial, onSubmit, onClose, submitting, error }:
     e.preventDefault()
     if (!canSubmit) return
     const pendingTags = tagDraft.trim() ? [...tags, ...tagDraft.split(',').map((t) => t.trim().replace(/^#/, '')).filter(Boolean)] : tags
+    console.log([...new Set(pendingTags)])
     onSubmit({
       title: title.trim(),
       category,

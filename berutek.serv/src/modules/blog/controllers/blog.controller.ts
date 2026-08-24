@@ -29,7 +29,7 @@ export class BlogController {
     @UseGuards(RoleGuard)
     @UsePipes(new ZodValidationPipe(createBlogSchema))
     create(@Body() dto: CreateBlogDto, @Session() session: SessionData) {
-        return this.blogService.create(dto, session.user!.username);
+        return this.blogService.create(dto, session.user!.id);
     }
 
     @Patch(':id')
