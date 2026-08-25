@@ -31,7 +31,7 @@ export default function BlogPage() {
       <div className="mb-20">
         {error ? (
           <p className="text-sm text-center text-red-600 dark:text-red-400" role="alert">
-            Couldn&apos;t load posts: {error}
+            Couldn't load posts: {error}
           </p>
         ) : posts === null ? (
           <p className="text-sm text-center font-mono text-zinc-400 dark:text-zinc-500">

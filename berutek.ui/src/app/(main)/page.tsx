@@ -95,19 +95,19 @@ export default function Home() {
       />
 
       {/* Hero */}
-      <section className="mb-24 text-center">
+      <section className="mb-24 text-center flex flex-col">
         <p className="text-xs font-mono uppercase tracking-widest text-zinc-400 dark:text-zinc-500 mb-4">
           Software Engineering Studio
         </p>
         <h1 className="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-zinc-50 mb-6 leading-tight">
-          We build the software&nbsp;behind&nbsp;your business.
+          We build the software behind your business.
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto text-lg leading-relaxed">
           Berutek is a boutique development studio run by Giovanny Bernal, a full-stack engineer
           and systems specialist with 3+ years building production software for startups and small
           teams who need things done right.
         </p>
-        <img src="https://drive.berutek.dev/avatar/berutek/512/dark?v=1781279073094" alt="Giovanny Bernal BeruTek Manager" className="mt-8 rounded-full w-48 h-48 object-cover justify-self-center" />
+        <img src="https://drive.berutek.dev/avatar/berutek/512/dark?v=1781279073094" alt="Giovanny Bernal BeruTek Manager" className="mt-8 rounded-full w-48 h-48 self-center" />
         <div className="mt-8 flex flex-wrap gap-3 justify-center">
           <a
             href="/contact"
@@ -153,10 +153,10 @@ export default function Home() {
               Giovanny Bernal
             </h3>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 mb-4">
-              Full-Stack Developer &amp; Systems Engineer
+              Full-Stack Developer - Systems Engineer
             </p>
             <div className="flex flex-wrap gap-1.5 mb-5">
-              {["TypeScript", "React", "Node.js", "GCP", "Linux", "Docker"].map((tag) => (
+              {["TypeScript", "React", "Node.js", "Java", "Linux", "Docker"].map((tag) => (
                 <span
                   key={tag}
                   className="px-2 py-0.5 rounded-md text-xs bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 font-mono"

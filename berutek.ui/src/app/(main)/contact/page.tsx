@@ -284,7 +284,7 @@ export default function ContactPage() {
               </li>
               <li className="flex gap-2">
                 <span className="text-zinc-300 dark:text-zinc-600 select-none">◈</span>
-                Free scoping call if there&apos;s a fit
+                Free scoping call if there's a fit
               </li>
               <li className="flex gap-2">
                 <span className="text-zinc-300 dark:text-zinc-600 select-none">∿</span>

@@ -76,7 +76,7 @@ const services = [
 const stack = [
   "TypeScript", "JavaScript", "Python", "Java",
   "Next.js", "React", "Node.js", "Express", "Spring Boot",
-  "MySQL", "MongoDB",
+  "MySQL", "MongoDB", "postgreSQL",
   "Docker", "GCP", "Linux",
 ];
 
@@ -90,7 +90,7 @@ export default function ServicesPage() {
           Freelance Services
         </p>
         <h1 className="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-zinc-50 mb-6 leading-tight">
-          Scalable, secure, and&nbsp;elegant solutions
+          Scalable, secure, and elegant solutions
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto text-lg">
           I'm Giovanny, a full-stack developer and systems engineer with 3+ years building

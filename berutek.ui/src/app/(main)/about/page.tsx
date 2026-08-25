@@ -48,7 +48,7 @@ const stackCategories = [
   },
   {
     label: "Databases",
-    items: ["MySQL", "MongoDB", "Redis"],
+    items: ["MySQL", "MongoDB", "Redis", "PostgreSQL"],
   },
   {
     label: "Infrastructure",
@@ -77,12 +77,12 @@ export default function AboutPage() {
           About Berutek
         </p>
         <h1 className="text-4xl sm:text-5xl font-bold text-zinc-900 dark:text-zinc-50 mb-6 leading-tight">
-          One engineer.&nbsp;Full&nbsp;accountability.
+          One engineer. Full accountability.
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400 max-w-xl mx-auto text-lg leading-relaxed">
-          Berutek is a boutique software studio run by Giovanny Berutek, a full-stack engineer and
+          Berutek is a boutique software studio run by Giovanny Bernal, a full-stack engineer and
           systems specialist dedicated to building production-grade software for startups and small
-          teams who can&apos;t afford to get it wrong.
+          teams who can't afford to get it wrong.
         </p>
       </section>
 
@@ -102,12 +102,12 @@ export default function AboutPage() {
               worked in the demo but broke in production.
             </p>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
-              The problem isn&apos;t always skill, it&apos;s structure. When too many hands touch the
+              The problem isn't always skill, it's structure. When too many hands touch the
               same project, things fall between the cracks. Berutek exists to fix that: one engineer
               who owns the entire stack and is directly accountable for the outcome.
             </p>
             <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
-              Over 3 years, I&apos;ve built full-stack web apps, managed Linux servers, designed database
+              Over 3 years, I've built full-stack web apps, managed Linux servers, designed database
               schemas, wired up cloud infrastructure, and shipped automation pipelines that saved
               teams hours every week. Every project made the next one sharper.
             </p>
@@ -120,18 +120,18 @@ export default function AboutPage() {
                 Founder
               </p>
               <h3 className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 mb-0.5">
-                Giovanny Berutek
+                Giovanny Bernal
               </h3>
               <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                Full-Stack Developer &amp; Systems Engineer
+                Full-Stack Developer - Systems Engineer
               </p>
             </div>
 
             <div className="border-t border-zinc-100 dark:border-zinc-800 pt-4 space-y-2 text-sm text-zinc-500 dark:text-zinc-400">
-              <p>⊕ &nbsp;3+ years shipping production software</p>
-              <p>☁ &nbsp;Cloud infrastructure on Google Cloud Platform</p>
-              <p>⬢ &nbsp;Linux systems administration &amp; hardening</p>
-              <p>∿ &nbsp;Automation, integrations, and API design</p>
+              <p>⊕  3+ years shipping production software</p>
+              <p>☁  Cloud infrastructure on Google Cloud Platform</p>
+              <p>⬢  Linux systems administration - hardening</p>
+              <p>∿  Automation, integrations, and API design</p>
             </div>
 
             <div className="flex flex-wrap gap-1.5">
@@ -238,7 +238,7 @@ export default function AboutPage() {
       {/* CTA */}
       <section className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-900 p-10 text-center">
         <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50 mb-3">
-          Let&apos;s build something together.
+          Let's build something together.
         </h2>
         <p className="text-zinc-500 dark:text-zinc-400 mb-6 max-w-md mx-auto text-sm">
           Whether you have a full spec or just an idea on a napkin, I can help you scope it,
