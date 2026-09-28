@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Get in touch with Giovanny Bernal at Berutek. Describe your project and receive a response within one business day — no sales team, just a direct conversation.",
+  alternates: {
+    canonical: "/contact",
+  },
   openGraph: {
     title: "Contact — Berutek",
     description:

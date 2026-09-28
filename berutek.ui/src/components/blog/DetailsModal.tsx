@@ -8,7 +8,7 @@ export interface BlogPost {
   tags: string[]
   /** HTML-formatted post body, as stored in the database */
   content: string
-  category?: 'update' | 'thought' | 'release'
+  category?: 'update' | 'thought' | 'release' | 'study' | 'experience' | 'career'
   createdAt: string
   updatedAt?: string
 }
@@ -17,6 +17,9 @@ export const CATEGORY_STYLES: Record<NonNullable<BlogPost['category']>, string> 
   update: 'bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-400',
   thought: 'bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-400',
   release: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-400',
+  study: 'bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-400',
+  experience: 'bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-400',
+  career: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-400',
 }
 
 export function formatPostDate(date: string) {

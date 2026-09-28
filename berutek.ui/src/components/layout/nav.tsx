@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import { useAuth } from "@hooks/api/useAuth";
+import { ADMIN_GROUP } from "../../types/auth.types";
 
 export interface AdminAction {
   label: string;
@@ -14,8 +15,6 @@ export interface AdminAction {
   /** Rendered in the muted red used for Logout */
   danger?: boolean;
 }
-
-const ADMIN_GROUP = "admin";
 
 export default function Nav({ actions }: { actions: AdminAction[] }) {
   const [open, setOpen] = useState(false);

@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "Services",
   description:
     "Full-stack web development, backend APIs, cloud infrastructure on GCP, Linux administration, database design, automation, custom email servers, and CRM integrations by Giovanny Bernal.",
+  alternates: {
+    canonical: "/services",
+  },
   openGraph: {
     title: "Services — Berutek",
     description:

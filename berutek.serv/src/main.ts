@@ -42,7 +42,8 @@ async function bootstrap() {
         httpOnly: true,
         secure: isProd,
         sameSite: isProd ? 'lax' : 'lax',
-        maxAge: 10 * 60 * 1000, // 10 minutes — only needed for the OIDC handshake
+        // Bumped to a full day once login succeeds — see AuthController#callback.
+        maxAge: configService.get<number>('session.handshakeMaxAge'),
       },
     }),
   );

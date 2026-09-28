@@ -21,6 +21,9 @@ export default () => ({
     },
     session: {
         secret: process.env.SESSION_SECRET,
+        // Short-lived: only covers the OIDC redirect round-trip, not the authenticated session.
+        handshakeMaxAge: 10 * 60 * 1000,
+        authenticatedMaxAge: parseInt(process.env.SESSION_MAX_AGE_MS || String(24 * 60 * 60 * 1000), 10),
     },
     oidc: {
         clientId: process.env.OIDC_CLIENT_ID,

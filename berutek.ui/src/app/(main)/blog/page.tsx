@@ -1,21 +1,19 @@
-'use client';
-
-import { useEffect, useState } from "react";
 import GetInTouch from "@/src/components/getInTouch";
 import { BlogTimeline } from "@/src/components/blog/BlogTimeline";
-import type { BlogPost } from "@/src/components/blog/DetailsModal";
 import { fetchPosts } from "@services/api/blogs";
 
+// Post list changes rarely — refetch at most once an hour instead of on every request.
+export const revalidate = 3600;
 
-export default function BlogPage() {
-  const [posts, setPosts] = useState<BlogPost[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
+export default async function BlogPage() {
+  let posts: Awaited<ReturnType<typeof fetchPosts>> = [];
+  let error: string | null = null;
 
-  useEffect(() => {
-    fetchPosts()
-      .then(setPosts)
-      .catch((err) => setError(err instanceof Error ? err.message : 'Failed to load posts'));
-  }, []);
+  try {
+    posts = await fetchPosts();
+  } catch (err) {
+    error = err instanceof Error ? err.message : "Failed to load posts";
+  }
 
   return (
     <main className="w-full max-w-5xl px-6 py-16 mx-auto">
@@ -32,10 +30,6 @@ export default function BlogPage() {
         {error ? (
           <p className="text-sm text-center text-red-600 dark:text-red-400" role="alert">
             Couldn't load posts: {error}
-          </p>
-        ) : posts === null ? (
-          <p className="text-sm text-center font-mono text-zinc-400 dark:text-zinc-500">
-            Loading posts…
           </p>
         ) : (
           <>

@@ -3,45 +3,63 @@ import GetInTouch from "@/src/components/getInTouch";
 import ArrowRightIcon from "@heroicons/react/24/solid/esm/ArrowRightIcon";
 
 export const metadata: Metadata = {
-  title: "Berutek — Software Engineering Studio",
+  // `absolute` bypasses the root layout's "%s | Berutek" template — without it this
+  // rendered as "Berutek — Software Engineering Studio | Berutek" (Berutek twice).
+  title: {
+    absolute: "Berutek — Software Consultant & Engineering Studio",
+  },
   description:
-    "Berutek is a boutique development studio run by Giovanny Bernal, a full-stack engineer with 3+ years building production software for startups and small teams who need things done right.",
+    "Berutek is Giovanny Bernal's software consulting studio: full-stack development, cloud infrastructure, and automation for startups and small teams.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "Berutek — Software Engineering Studio",
+    title: "Berutek — Software Consultant & Engineering Studio",
     description:
       "Full-stack development, cloud infrastructure, and automation. One engineer, full accountability.",
     url: "https://berutek.dev",
   },
 };
 
-const organizationJsonLd = {
+// @graph links the org and its founder as distinct, cross-referenced entities —
+// stronger for "Giovanny Bernal" / "Berutek" name-search recognition than nesting
+// the person as an inline, id-less property of the organization.
+const siteJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "Berutek",
-  url: "https://berutek.dev",
-  logo: "https://berutek.dev/berutek.icon.webp",
-  description:
-    "Boutique software studio offering full-stack development, cloud infrastructure, and automation for startups and small teams.",
-  email: "giovanny@berutek.dev",
-  founder: {
-    "@type": "Person",
-    name: "Giovanny Bernal",
-    jobTitle: "Full-Stack Developer & Systems Engineer",
-    url: "https://berutek.dev/about",
-    email: "giovanny@berutek.dev",
-    sameAs: ["https://github.com/berutek"],
-    knowsAbout: [
-      "TypeScript",
-      "React",
-      "Next.js",
-      "Node.js",
-      "Google Cloud Platform",
-      "Docker",
-      "Linux",
-      "Python",
-    ],
-  },
-  sameAs: ["https://github.com/berutek"],
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://berutek.dev/#organization",
+      name: "Berutek",
+      url: "https://berutek.dev",
+      logo: "https://berutek.dev/berutek.icon.webp",
+      description:
+        "Boutique software consulting studio offering full-stack development, cloud infrastructure, and automation for startups and small teams.",
+      email: "giovanny@berutek.dev",
+      founder: { "@id": "https://berutek.dev/#giovanny-bernal" },
+      sameAs: ["https://github.com/berutek", "https://linkedin.com/in/berutek"],
+    },
+    {
+      "@type": "Person",
+      "@id": "https://berutek.dev/#giovanny-bernal",
+      name: "Giovanny Bernal",
+      jobTitle: "Full-Stack Developer & Systems Engineer",
+      url: "https://berutek.dev/about",
+      email: "giovanny@berutek.dev",
+      worksFor: { "@id": "https://berutek.dev/#organization" },
+      sameAs: ["https://github.com/berutek", "https://linkedin.com/in/berutek"],
+      knowsAbout: [
+        "TypeScript",
+        "React",
+        "Next.js",
+        "Node.js",
+        "Google Cloud Platform",
+        "Docker",
+        "Linux",
+        "Python",
+      ],
+    },
+  ],
 };
 
 const highlights = [
@@ -91,7 +109,7 @@ export default function Home() {
     <main className="w-full max-w-5xl px-6 py-16 mx-auto">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
       />
 
       {/* Hero */}

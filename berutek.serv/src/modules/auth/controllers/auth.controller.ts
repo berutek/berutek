@@ -39,6 +39,10 @@ export class AuthController {
         groups: user.groups,
       };
 
+      // The cookie was issued with a short handshake-only maxAge; now that the user is
+      // actually authenticated, extend it so the session outlives the OIDC round-trip.
+      req.session.cookie.maxAge = this.config_service.get<number>('session.authenticatedMaxAge')!;
+
       res.redirect(this.config_service.get('oidc.frontendUrl')!);
     } catch (error) {
       console.error('OIDC callback error:', error);

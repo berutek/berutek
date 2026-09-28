@@ -5,3 +5,5 @@ export interface User {
   displayname: string;
   groups: string[];
 }
+
+export const ADMIN_GROUP = "admin";

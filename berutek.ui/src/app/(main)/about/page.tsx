@@ -4,6 +4,9 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "Learn about Giovanny Bernal and Berutek — a boutique software studio built on direct communication, end-to-end ownership, and production-grade engineering for startups and small teams.",
+  alternates: {
+    canonical: "/about",
+  },
   openGraph: {
     title: "About Berutek",
     description:

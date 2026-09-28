@@ -1,0 +1,44 @@
+# Berutek
+
+> Boutique software consulting studio run by Giovanny Bernal, a full-stack
+> developer and systems engineer with 3+ years building production software
+> for startups and small teams.
+
+## Who
+
+Giovanny Bernal — Full-Stack Developer & Systems Engineer, founder of Berutek.
+Every project is handled personally by Giovanny, end-to-end: no rotating
+team, no handoff gaps.
+
+## What we do
+
+- Full-stack web development (Next.js, React, Node.js)
+- Backend API development (Node.js/Express, Java/Spring Boot)
+- Cloud infrastructure & DevOps (Google Cloud Platform, Cloud Run, Cloud Functions, Docker)
+- Linux systems administration (server hardening, SSH/SFTP)
+- Database design & management (MySQL, MongoDB)
+- Automation & integrations (Python, Google APIs, OAuth)
+- Custom email server setup (SMTP/IMAP, SPF/DKIM/DMARC)
+- CRM & workflow integrations
+
+## Who it's for
+
+Startups and small teams who need production-grade software without the
+overhead, slow timelines, or communication gaps of a large agency.
+
+## Contact
+
+Email: giovanny@berutek.dev
+GitHub: https://github.com/berutek
+LinkedIn: https://linkedin.com/in/berutek
+Contact form: https://berutek.dev/contact
+Timezone: Americas, typically available Mon-Fri, 8 AM-7 PM ET.
+
+## Key pages
+
+- Home: https://berutek.dev
+- Services: https://berutek.dev/services
+- About: https://berutek.dev/about
+- Work: https://berutek.dev/work
+- Blog: https://berutek.dev/blog
+- Contact: https://berutek.dev/contact

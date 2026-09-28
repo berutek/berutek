@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Work",
   description:
     "Projects built by Berutek: BeruDrive (self-hosted cloud storage), BeruPortal (server management portal), BeruAI (AI automation workflows), and more production systems.",
+  alternates: {
+    canonical: "/work",
+  },
   openGraph: {
     title: "Work — Berutek",
     description:
